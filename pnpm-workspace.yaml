@@ -1,0 +1,16 @@
+packages:
+  - apps/*
+  - packages/*
+  - tooling/*
+catalog:
+  dotenv-cli: ^8.0.0
+  eslint: ^9.28.0
+  prettier: ^3.5.3
+  tailwindcss: ^4.1.11
+  typescript: ^5.8.3
+  zod: ^3.25.67
+  '@types/node': ^24.0.7
+  '@tanstack/react-query': ^5.81.5
+ignoredBuiltDependencies:
+  - argon2
+  - esbuild

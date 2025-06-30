@@ -1,0 +1,46 @@
+{
+  "name": "@projet-node-semaine-3/db",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./src/index.ts"
+    },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "default": "./src/client.ts"
+    },
+    "./schema": {
+      "types": "./dist/schema.d.ts",
+      "default": "./src/schema.ts"
+    }
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc",
+    "push": "pnpm with-env drizzle-kit push",
+    "generate": "drizzle-kit generate",
+    "migrate": "drizzle-kit migrate",
+    "studio": "pnpm with-env drizzle-kit studio",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "dependencies": {
+    "@types/node": "catalog:",
+    "dotenv": "^17.0.0",
+    "drizzle-orm": "^0.44.2",
+    "pg": "^8.16.3",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@projet-node-semaine-3/tsconfig": "workspace:*",
+    "@types/pg": "^8.15.4",
+    "dotenv-cli": "catalog:",
+    "drizzle-kit": "^0.31.4",
+    "prettier": "catalog:",
+    "tsx": "^4.20.3",
+    "typescript": "catalog:"
+  }
+}
