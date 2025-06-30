@@ -16,7 +16,7 @@ export const env: EnvConfig = {
   PORT: Number(process.env.PORT) || 3000,
   NODE_ENV: process.env.NODE_ENV as EnvConfig["NODE_ENV"],
   CORS_ORIGIN: process.env.CORS_ORIGIN || "http://localhost:5173",
-  DATABASE_URL: process.env.DATABASE_URL || "truc",
+  POSTGRES_URL: process.env.POSTGRES_URL!,
   JWT_SECRET:
     process.env.JWT_SECRET || "SecretTresBienGardeNePasDivulgerPubliquement",
 };
