@@ -1,0 +1,8 @@
+{
+  "name": "@projet-node-semaine-3/tsconfig",
+  "private": true,
+  "version": "0.1.0",
+  "files": [
+    "*.json"
+  ]
+}
