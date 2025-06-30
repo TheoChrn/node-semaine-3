@@ -1,3 +1,5 @@
+import { rawMaterialTypes } from "@/schemas/raw-material-types";
+import { relations } from "drizzle-orm";
 import { pgTable, uuid, timestamp, text } from "drizzle-orm/pg-core";
 
 const companiesValues = ["BBois", "MetaLo", "pPlastique"] as const;

@@ -1,10 +1,12 @@
 {
   "extends": "@projet-node-semaine-3/tsconfig/internal-package.json",
   "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
     "paths": {
       "@/*": ["./src/*"]
     }
   },
-  "include": ["."],
+  "include": ["src"],
   "exclude": ["node_modules"]
 }

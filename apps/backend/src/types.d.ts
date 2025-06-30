@@ -5,7 +5,7 @@ declare global {
     PORT: number;
     NODE_ENV: "development" | "production" | "test";
     CORS_ORIGIN: string;
-    DATABASE_URL: string;
+    POSTGRES_URL: string;
     JWT_SECRET: string;
   }
 }

@@ -1,4 +1,6 @@
-import { pgTable, uuid, varchar, timestamp, text } from "drizzle-orm/pg-core";
+import { furnitures } from "@/schemas/furnitures";
+import { relations } from "drizzle-orm";
+import { pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 
 const userRole = ["user", "admin"] as const;
 export type UserRoleValues = typeof userRole;
@@ -17,3 +19,7 @@ export const users = pgTable("users", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
+
+export const usersRelations = relations(users, ({ many }) => ({
+  furnitures: many(furnitures),
+}));

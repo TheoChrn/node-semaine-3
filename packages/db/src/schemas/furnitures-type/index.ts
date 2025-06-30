@@ -1,3 +1,5 @@
+import { furnitures } from "@/schemas/furnitures";
+import { relations } from "drizzle-orm";
 import { pgTable, uuid, timestamp, text } from "drizzle-orm/pg-core";
 
 const furnitureTypesValues = ["armoire", "étagère"] as const;
@@ -16,3 +18,10 @@ export const furnitureTypes = pgTable("furniture_types", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
+
+export const furnitureTypesRelations = relations(
+  furnitureTypes,
+  ({ many }) => ({
+    furnitures: many(furnitures),
+  })
+);
