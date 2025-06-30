@@ -38,7 +38,6 @@ export const rawMaterials = pgTable("raw_materials", {
   id: uuid("id").defaultRandom().primaryKey(),
   value: text({ enum: rawMaterialsValues }).notNull(),
   type: text({ enum: rawMaterialsTypeValue }).notNull(),
-  keyword: varchar("keyword", { length: 255 }).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
