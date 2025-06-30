@@ -1,0 +1,21 @@
+# dépendances
+node_modules/
+.env
+
+# logs
+logs
+*.log
+
+# système
+.DS_Store
+Thumbs.db
+
+# build
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
