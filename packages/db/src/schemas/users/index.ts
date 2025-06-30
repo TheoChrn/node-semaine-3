@@ -17,7 +17,3 @@ export const users = pgTable("users", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
-
-// export const usersRelations = relations(users, ({ many }) => ({
-//   furnitures: many(furnitures),
-// }));
