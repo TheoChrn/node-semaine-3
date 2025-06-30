@@ -11,7 +11,7 @@ export const companiesRecord = {
   PPLASTIQUE: "pPlastique",
 } as const satisfies Record<string, CompaniesValue>;
 
-export const rawMaterials = pgTable("raw_materials", {
+export const companies = pgTable("companies", {
   id: uuid("id").defaultRandom().primaryKey(),
   name: text({ enum: companiesValues }).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),

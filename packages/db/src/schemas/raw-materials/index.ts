@@ -14,13 +14,13 @@ export type RawMaterialsValues = typeof rawMaterialsValues;
 export type RawMaterialsValue = RawMaterialsValues[number];
 
 export const rawMaterialsRecord = {
-  Frene: "frêne",
-  Chene: "chêne",
-  Noyer: "noyer",
-  Acier: "acier",
-  Inox: "inox",
-  Aluminium: "aluminium",
-  Plastique: "plastique",
+  FRENE: "frêne",
+  CHENE: "chêne",
+  NOYER: "noyer",
+  ACIER: "acier",
+  INOX: "inox",
+  ALUMINIUM: "aluminium",
+  PLASTIQUE: "plastique",
 } as const satisfies Record<string, RawMaterialsValue>;
 
 const rawMaterialsTypeValue = ["bois", "fer", "plastique"] as const;
