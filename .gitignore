@@ -20,5 +20,11 @@ build/
 *.sublime-project
 *.sublime-workspace
 
-# Tanstack
-.vinxi
+# TanStack Start
+.vinxi/
+.tanstack
+.output/
+.nitro/
+dist/
+build/
+
