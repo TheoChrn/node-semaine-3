@@ -1,5 +1,5 @@
 {
-  "name": "@projet-node-semaine-3/db",
+  "name": "@projet-node-semaine-3/shared",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -7,10 +7,6 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./src/index.ts"
-    },
-    "./schema": {
-      "types": "./dist/schemas/schema.d.ts",
-      "default": "./src/schemas/schema.ts"
     }
   },
   "license": "MIT",
@@ -18,27 +14,23 @@
     "build": "tsc && tsc-alias",
     "dev": "tsc",
     "push": "pnpm with-env drizzle-kit push",
-    "generate": "drizzle-kit generate",
-    "migrate": "drizzle-kit migrate",
-    "studio": "pnpm with-env drizzle-kit studio",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
     "@types/node": "catalog:",
-    "dotenv": "^17.0.0",
+    "dotenv": "catalog:",
     "drizzle-orm": "^0.44.2",
     "pg": "^8.16.3",
     "zod": "catalog:"
   },
   "devDependencies": {
     "@projet-node-semaine-3/tsconfig": "workspace:*",
-    "@projet-node-semaine-3/shared": "workspace:*",
     "@types/pg": "^8.15.4",
     "dotenv-cli": "catalog:",
     "drizzle-kit": "^0.31.4",
     "prettier": "catalog:",
+    "tsc-alias": "catalog:",
     "tsx": "^4.20.3",
-    "typescript": "catalog:",
-    "tsc-alias": "catalog:"
+    "typescript": "catalog:"
   }
 }

@@ -2,10 +2,22 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "./base.json",
   "compilerOptions": {
+    "paths": {
+      "@repo/shared/*": ["packages/shared/src/*"],
+      "@repo/shared": ["packages/shared/src/index"],
+      "@repo/db/*": ["packages/db/src/*"],
+      "@repo/db": ["packages/db/src/index"]
+    },
     "declaration": true,
     "declarationMap": true,
     "emitDeclarationOnly": true,
     "noEmit": false,
     "outDir": "${configDir}/dist"
-  }
+  },
+  "references": [
+    { "path": "./apps/frontend" },
+    { "path": "./apps/backend" },
+    { "path": "./packages/shared" },
+    { "path": "./packages/db" }
+  ]
 }

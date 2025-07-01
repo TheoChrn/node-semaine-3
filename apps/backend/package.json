@@ -16,13 +16,14 @@
     "argon2": "^0.43.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
-    "dotenv": "^17.0.0",
+    "dotenv": "catalog:",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "zod": "catalog:"
   },
   "devDependencies": {
     "@projet-node-semaine-3/tsconfig": "workspace:*",
+    "@projet-node-semaine-3/shared": "workspace:*",
     "@types/cookie-parser": "^1.4.9",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",

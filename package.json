@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "pnpm -r run dev"
+    "dev": "pnpm -r run dev",
+    "build": "pnpm -r run build",
+    "generate": "pnpm --filter db generate",
+    "migrate": "pnpm --filter db migrate",
+    "studio": "pnpm --filter db studio"
   },
   "keywords": [],
   "author": "",

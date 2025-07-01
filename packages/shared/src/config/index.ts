@@ -1,3 +1,4 @@
+import { EnvConfig } from "@/types";
 import * as dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
