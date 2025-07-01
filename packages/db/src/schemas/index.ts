@@ -1,9 +1,9 @@
-import * as users from "@/schemas/users";
-import * as companies from "@/schemas/companies";
-import * as furnitures from "@/schemas/furnitures";
-import * as furnitureTypes from "@/schemas/furnitures-type";
-import * as rawMaterials from "@/schemas/raw-materials";
-import * as rawMaterialTypes from "@/schemas/raw-material-types";
+import * as users from "./users";
+import * as companies from "./companies";
+import * as furnitures from "./furnitures";
+import * as furnitureTypes from "./furnitures-type";
+import * as rawMaterials from "./raw-materials";
+import * as rawMaterialTypes from "./raw-material-types";
 
 export const schema = {
   ...users,

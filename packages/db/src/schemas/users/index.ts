@@ -1,6 +1,13 @@
 import { furnitures } from "@/schemas/furnitures";
 import { relations } from "drizzle-orm";
-import { pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+import {
+  pgEnum,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+  varchar,
+} from "drizzle-orm/pg-core";
 
 const userRole = ["user", "admin"] as const;
 export type UserRoleValues = typeof userRole;
@@ -11,11 +18,13 @@ export const userRolesValues = {
   ADMIN: "admin",
 } as const satisfies Record<string, UserRole>;
 
+export const roleEnum = pgEnum("role", userRole);
+
 export const users = pgTable("users", {
   id: uuid("id").defaultRandom().primaryKey(),
   email: varchar("email", { length: 255 }).notNull().unique(),
   password: varchar("password", { length: 255 }).notNull(),
-  role: text({ enum: userRole }).notNull().default("user"),
+  role: roleEnum("role").notNull().default("user"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });

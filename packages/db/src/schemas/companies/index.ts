@@ -1,6 +1,4 @@
-import { rawMaterialTypes } from "@/schemas/raw-material-types";
-import { relations } from "drizzle-orm";
-import { pgTable, uuid, timestamp, text } from "drizzle-orm/pg-core";
+import { pgEnum, pgTable, timestamp, uuid } from "drizzle-orm/pg-core";
 
 const companiesValues = ["BBois", "MetaLo", "pPlastique"] as const;
 
@@ -13,9 +11,11 @@ export const companiesRecord = {
   PPLASTIQUE: "pPlastique",
 } as const satisfies Record<string, CompaniesValue>;
 
+export const nameEnum = pgEnum("name", companiesValues);
+
 export const companies = pgTable("companies", {
   id: uuid("id").defaultRandom().primaryKey(),
-  name: text({ enum: companiesValues }).notNull(),
+  name: nameEnum("name").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });

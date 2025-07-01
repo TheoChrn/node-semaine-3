@@ -1,6 +1,6 @@
 import { furnitures } from "@/schemas/furnitures";
 import { relations } from "drizzle-orm";
-import { pgTable, uuid, timestamp, text } from "drizzle-orm/pg-core";
+import { pgTable, uuid, timestamp, text, pgEnum } from "drizzle-orm/pg-core";
 
 const furnitureTypesValues = ["armoire", "étagère"] as const;
 
@@ -12,9 +12,11 @@ export const furnitureTypesRecord = {
   ETAGERE: "étagère",
 } as const satisfies Record<string, FurnitureTypesValue>;
 
+export const furnitureTypesEnum = pgEnum("value", furnitureTypesValues);
+
 export const furnitureTypes = pgTable("furniture_types", {
   id: uuid("id").defaultRandom().primaryKey(),
-  name: text({ enum: furnitureTypesValues }).notNull(),
+  value: furnitureTypesEnum("value").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });

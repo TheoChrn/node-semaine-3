@@ -1,6 +1,13 @@
 import { rawMaterialTypes } from "@/schemas/raw-material-types";
 import { relations } from "drizzle-orm";
-import { pgTable, uuid, varchar, timestamp, text } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  uuid,
+  varchar,
+  timestamp,
+  text,
+  pgEnum,
+} from "drizzle-orm/pg-core";
 
 const woodMaterials = ["frêne", "chêne", "noyer"] as const;
 const ironMaterials = ["acier", "inox", "aluminium"] as const;
@@ -25,10 +32,12 @@ export const rawMaterialsRecord = {
   PLASTIQUE: "plastique",
 } as const satisfies Record<string, RawMaterialsValue>;
 
+export const rawMaterialsEnum = pgEnum("value", rawMaterialsValues);
+
 export const rawMaterials = pgTable("raw_materials", {
   id: uuid("id").defaultRandom().primaryKey(),
-  value: text({ enum: rawMaterialsValues }).notNull(),
-  typeId: uuid()
+  value: rawMaterialsEnum("value").notNull(),
+  typeId: uuid("type_id")
     .references(() => rawMaterialTypes.id, { onDelete: "cascade" })
     .notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),

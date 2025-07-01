@@ -6,10 +6,10 @@ import { pgTable, uuid, varchar, timestamp } from "drizzle-orm/pg-core";
 export const furnitures = pgTable("funitures", {
   id: uuid("id").defaultRandom().primaryKey(),
   value: varchar("value", { length: 255 }).notNull(),
-  createdBy: uuid()
+  createdBy: uuid("created_by")
     .references(() => users.id, { onDelete: "cascade" })
     .notNull(),
-  typeId: uuid()
+  typeId: uuid("type_id")
     .references(() => furnitureTypes.id, { onDelete: "cascade" })
     .notNull(),
   keyword: varchar("keyword", { length: 255 }).notNull(),
