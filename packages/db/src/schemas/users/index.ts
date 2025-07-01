@@ -18,7 +18,7 @@ export const userRolesValues = {
   ADMIN: "admin",
 } as const satisfies Record<string, UserRole>;
 
-export const roleEnum = pgEnum("role", userRole);
+export const roleEnum = pgEnum("role_value", userRole);
 
 export const users = pgTable("users", {
   id: uuid("id").defaultRandom().primaryKey(),

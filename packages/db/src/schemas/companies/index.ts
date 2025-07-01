@@ -1,4 +1,4 @@
-import { pgEnum, pgTable, timestamp, uuid } from "drizzle-orm/pg-core";
+import { pgEnum, pgTable, timestamp, unique, uuid } from "drizzle-orm/pg-core";
 
 const companiesValues = ["BBois", "MetaLo", "pPlastique"] as const;
 
@@ -11,11 +11,17 @@ export const companiesRecord = {
   PPLASTIQUE: "pPlastique",
 } as const satisfies Record<string, CompaniesValue>;
 
-export const nameEnum = pgEnum("name", companiesValues);
+export const nameEnum = pgEnum("companies_enum", companiesValues);
 
-export const companies = pgTable("companies", {
-  id: uuid("id").defaultRandom().primaryKey(),
-  name: nameEnum("name").notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
+export const companies = pgTable(
+  "companies",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    name: nameEnum("name").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (table) => ({
+    uniqueName: unique().on(table.name),
+  })
+);

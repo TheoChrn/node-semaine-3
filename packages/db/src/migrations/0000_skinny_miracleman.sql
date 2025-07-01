@@ -1,16 +1,19 @@
-CREATE TYPE "public"."name" AS ENUM('BBois', 'MetaLo', 'pPlastique');--> statement-breakpoint
-CREATE TYPE "public"."value" AS ENUM('frêne', 'chêne', 'noyer', 'acier', 'inox', 'aluminium', 'plastique');--> statement-breakpoint
-CREATE TYPE "public"."role" AS ENUM('user', 'admin');--> statement-breakpoint
+CREATE TYPE "public"."companies_enum" AS ENUM('BBois', 'MetaLo', 'pPlastique');--> statement-breakpoint
+CREATE TYPE "public"."furniture_types_value" AS ENUM('armoire', 'étagère');--> statement-breakpoint
+CREATE TYPE "public"."raw_material_types_value" AS ENUM('bois', 'fer', 'plastique');--> statement-breakpoint
+CREATE TYPE "public"."raw_materials_value" AS ENUM('frêne', 'chêne', 'noyer', 'acier', 'inox', 'aluminium', 'plastique');--> statement-breakpoint
+CREATE TYPE "public"."role_value" AS ENUM('user', 'admin');--> statement-breakpoint
 CREATE TABLE "companies" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"name" "name" NOT NULL,
+	"name" "companies_enum" NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
-	"updated_at" timestamp DEFAULT now() NOT NULL
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "companies_name_unique" UNIQUE("name")
 );
 --> statement-breakpoint
 CREATE TABLE "furniture_types" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"value" "value" NOT NULL,
+	"value" "furniture_types_value" NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL
 );
@@ -27,15 +30,16 @@ CREATE TABLE "funitures" (
 --> statement-breakpoint
 CREATE TABLE "raw_material_types" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"value" "value" NOT NULL,
+	"value" "raw_material_types_value" NOT NULL,
 	"company_id" uuid NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
-	"updated_at" timestamp DEFAULT now() NOT NULL
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "raw_material_types_value_unique" UNIQUE("value")
 );
 --> statement-breakpoint
 CREATE TABLE "raw_materials" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"value" "value" NOT NULL,
+	"value" "raw_materials_value" NOT NULL,
 	"type_id" uuid NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL
@@ -45,7 +49,7 @@ CREATE TABLE "users" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"email" varchar(255) NOT NULL,
 	"password" varchar(255) NOT NULL,
-	"role" "role" DEFAULT 'user' NOT NULL,
+	"role" "role_value" DEFAULT 'user' NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "users_email_unique" UNIQUE("email")

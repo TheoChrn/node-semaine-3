@@ -12,7 +12,10 @@ export const furnitureTypesRecord = {
   ETAGERE: "étagère",
 } as const satisfies Record<string, FurnitureTypesValue>;
 
-export const furnitureTypesEnum = pgEnum("value", furnitureTypesValues);
+export const furnitureTypesEnum = pgEnum(
+  "furniture_types_value",
+  furnitureTypesValues
+);
 
 export const furnitureTypes = pgTable("furniture_types", {
   id: uuid("id").defaultRandom().primaryKey(),

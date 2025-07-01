@@ -1,5 +1,5 @@
 {
-  "id": "b5f7d9db-bf33-42ad-a43a-7ba9f49773ea",
+  "id": "97e8f2f8-ba4f-4e24-8df0-ae72927c7a62",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -17,7 +17,7 @@
         },
         "name": {
           "name": "name",
-          "type": "name",
+          "type": "companies_enum",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
@@ -40,7 +40,15 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
+      "uniqueConstraints": {
+        "companies_name_unique": {
+          "name": "companies_name_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "name"
+          ]
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
@@ -58,7 +66,7 @@
         },
         "value": {
           "name": "value",
-          "type": "value",
+          "type": "furniture_types_value",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
@@ -184,7 +192,7 @@
         },
         "value": {
           "name": "value",
-          "type": "value",
+          "type": "raw_material_types_value",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
@@ -227,7 +235,15 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
+      "uniqueConstraints": {
+        "raw_material_types_value_unique": {
+          "name": "raw_material_types_value_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "value"
+          ]
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
@@ -245,7 +261,7 @@
         },
         "value": {
           "name": "value",
-          "type": "value",
+          "type": "raw_materials_value",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
@@ -318,7 +334,7 @@
         },
         "role": {
           "name": "role",
-          "type": "role",
+          "type": "role_value",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": true,
@@ -357,8 +373,8 @@
     }
   },
   "enums": {
-    "public.name": {
-      "name": "name",
+    "public.companies_enum": {
+      "name": "companies_enum",
       "schema": "public",
       "values": [
         "BBois",
@@ -366,8 +382,25 @@
         "pPlastique"
       ]
     },
-    "public.value": {
-      "name": "value",
+    "public.furniture_types_value": {
+      "name": "furniture_types_value",
+      "schema": "public",
+      "values": [
+        "armoire",
+        "étagère"
+      ]
+    },
+    "public.raw_material_types_value": {
+      "name": "raw_material_types_value",
+      "schema": "public",
+      "values": [
+        "bois",
+        "fer",
+        "plastique"
+      ]
+    },
+    "public.raw_materials_value": {
+      "name": "raw_materials_value",
       "schema": "public",
       "values": [
         "frêne",
@@ -379,8 +412,8 @@
         "plastique"
       ]
     },
-    "public.role": {
-      "name": "role",
+    "public.role_value": {
+      "name": "role_value",
       "schema": "public",
       "values": [
         "user",

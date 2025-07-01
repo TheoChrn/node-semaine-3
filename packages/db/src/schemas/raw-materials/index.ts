@@ -32,7 +32,10 @@ export const rawMaterialsRecord = {
   PLASTIQUE: "plastique",
 } as const satisfies Record<string, RawMaterialsValue>;
 
-export const rawMaterialsEnum = pgEnum("value", rawMaterialsValues);
+export const rawMaterialsEnum = pgEnum(
+  "raw_materials_value",
+  rawMaterialsValues
+);
 
 export const rawMaterials = pgTable("raw_materials", {
   id: uuid("id").defaultRandom().primaryKey(),
