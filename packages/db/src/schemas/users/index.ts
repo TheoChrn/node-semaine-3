@@ -1,13 +1,6 @@
-import { furnitures } from "@/schemas/furnitures";
 import { relations } from "drizzle-orm";
-import {
-  pgEnum,
-  pgTable,
-  text,
-  timestamp,
-  uuid,
-  varchar,
-} from "drizzle-orm/pg-core";
+import { pgEnum, pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+import { furnitures } from "../furnitures";
 
 const userRole = ["user", "admin"] as const;
 export type UserRoleValues = typeof userRole;

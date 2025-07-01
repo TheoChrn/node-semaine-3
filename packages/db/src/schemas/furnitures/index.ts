@@ -1,9 +1,10 @@
-import { furnitureTypes } from "@/schemas/furnitures-type";
-import { users } from "@/schemas/users";
 import { relations } from "drizzle-orm";
-import { pgTable, uuid, varchar, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+import { furnitureTypes } from "../furnitures-type";
+import { users } from "../users";
+import { furnituresRawMaterials } from "../furnitures-materials";
 
-export const furnitures = pgTable("funitures", {
+export const furnitures = pgTable("furnitures", {
   id: uuid("id").defaultRandom().primaryKey(),
   value: varchar("value", { length: 255 }).notNull(),
   createdBy: uuid("created_by")
@@ -17,7 +18,7 @@ export const furnitures = pgTable("funitures", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
-export const furnituresRelations = relations(furnitures, ({ one }) => ({
+export const furnituresRelations = relations(furnitures, ({ one, many }) => ({
   type: one(furnitureTypes, {
     fields: [furnitures.typeId],
     references: [furnitureTypes.id],
@@ -26,4 +27,5 @@ export const furnituresRelations = relations(furnitures, ({ one }) => ({
     fields: [furnitures.createdBy],
     references: [users.id],
   }),
+  furnitureMaterials: many(furnituresRawMaterials),
 }));
