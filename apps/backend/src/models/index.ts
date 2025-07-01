@@ -1,5 +1,5 @@
-import * as furniture from "./furnitures";
+import * as furnitures from "./furnitures";
 
 export const models = {
-  ...furniture,
+  ...furnitures,
 };

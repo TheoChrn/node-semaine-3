@@ -198,6 +198,9 @@ importers:
         specifier: 'catalog:'
         version: 3.25.67
     devDependencies:
+      '@projet-node-semaine-3/db':
+        specifier: workspace:*
+        version: link:../db
       '@projet-node-semaine-3/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript

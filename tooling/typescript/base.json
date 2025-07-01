@@ -19,15 +19,8 @@
     "checkJs": true,
 
     "module": "Preserve",
-    "moduleResolution": "bundler",
-    "noEmit": true,
-    "baseUrl": ".",
-    "paths": {
-      "@shared/*": ["packages/shared/src/*"],
-      "@db/*": ["packages/db/src/*"],
-      "@backend/*": ["apps/backend/src/*"],
-      "@frontend/*": ["apps/frontend/src/*"]
-    }
+    "moduleResolution": "Bundler",
+    "noEmit": true
   },
   "exclude": ["node_modules", "build", "dist"]
 }

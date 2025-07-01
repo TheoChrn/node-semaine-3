@@ -1,7 +1,7 @@
-import { EnvConfig } from "@/types";
 import * as dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
+import { EnvConfig } from "../types";
 
 const NODE_ENV = process.env.NODE_ENV || "development";
 const envFile = NODE_ENV === "production" ? ".env.production" : ".env";

@@ -6,7 +6,7 @@ const woodMaterials = ["frêne", "chêne", "noyer"] as const;
 const ironMaterials = ["acier", "inox", "aluminium"] as const;
 const plasticMaterials = ["plastique"] as const;
 
-const rawMaterialsValues = [
+export const rawMaterialsValues = [
   ...woodMaterials,
   ...ironMaterials,
   ...plasticMaterials,

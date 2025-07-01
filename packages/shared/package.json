@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@projet-node-semaine-3/tsconfig": "workspace:*",
+    "@projet-node-semaine-3/db": "workspace:*",
     "@types/pg": "^8.15.4",
     "dotenv-cli": "catalog:",
     "drizzle-kit": "^0.31.4",
