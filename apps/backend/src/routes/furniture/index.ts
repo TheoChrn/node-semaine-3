@@ -1,10 +1,10 @@
+import { controllers } from "@/controllers";
 import { Router } from "express";
-import furnitureRouter from "@/routes/furniture";
 
 import express from "express";
 
 const router: Router = express.Router();
 
-router.use("/furnitures", furnitureRouter);
+router.post("/", controllers.furniture.create);
 
 export default router;

@@ -1,5 +1,5 @@
-import { companies } from "@/schemas/companies";
-import { rawMaterials } from "@/schemas/raw-materials";
+import { companies } from "../companies";
+import { rawMaterials } from "../raw-materials";
 import { relations } from "drizzle-orm";
 import {
   pgTable,

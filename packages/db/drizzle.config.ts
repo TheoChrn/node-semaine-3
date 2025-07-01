@@ -7,8 +7,6 @@ if (!POSTGRES_URL) {
   throw new Error("Missing POSTGRES_URL");
 }
 
-console.log("Using DB:", POSTGRES_URL);
-
 export default {
   dialect: "postgresql",
   out: "src/migrations",

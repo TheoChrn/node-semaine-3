@@ -1,8 +1,9 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import router from "@/routes";
+
 import { env } from "@projet-node-semaine-3/shared";
+import router from "@/routes";
 
 const app = express();
 

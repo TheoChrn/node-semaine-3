@@ -1,13 +1,6 @@
-import { rawMaterialTypes } from "@/schemas/raw-material-types";
+import { rawMaterialTypes } from "../raw-material-types";
 import { relations } from "drizzle-orm";
-import {
-  pgTable,
-  uuid,
-  varchar,
-  timestamp,
-  text,
-  pgEnum,
-} from "drizzle-orm/pg-core";
+import { pgEnum, pgTable, timestamp, uuid } from "drizzle-orm/pg-core";
 
 const woodMaterials = ["frêne", "chêne", "noyer"] as const;
 const ironMaterials = ["acier", "inox", "aluminium"] as const;

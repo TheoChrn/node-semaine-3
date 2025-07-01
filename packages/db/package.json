@@ -7,12 +7,9 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./src/index.ts"
-    },
-    "./schema": {
-      "types": "./dist/schemas/schema.d.ts",
-      "default": "./src/schemas/schema.ts"
     }
   },
+ 
   "license": "MIT",
   "scripts": {
     "build": "tsc && tsc-alias",

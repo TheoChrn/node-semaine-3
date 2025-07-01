@@ -1,6 +1,7 @@
 # dépendances
 node_modules/
 .env
+.cache
 
 # logs
 logs

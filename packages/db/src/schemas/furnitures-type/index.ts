@@ -1,6 +1,6 @@
-import { furnitures } from "@/schemas/furnitures";
+import { furnitures } from "../furnitures";
 import { relations } from "drizzle-orm";
-import { pgTable, uuid, timestamp, text, pgEnum } from "drizzle-orm/pg-core";
+import { pgEnum, pgTable, timestamp, uuid } from "drizzle-orm/pg-core";
 
 const furnitureTypesValues = ["armoire", "étagère"] as const;
 

@@ -1,5 +1,5 @@
-import { furnitureTypes } from "@/schemas/furnitures-type";
-import { users } from "@/schemas/users";
+import { furnitureTypes } from "../furnitures-type";
+import { users } from "../users";
 import { relations } from "drizzle-orm";
 import { pgTable, uuid, varchar, timestamp } from "drizzle-orm/pg-core";
 
