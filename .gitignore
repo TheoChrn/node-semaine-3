@@ -19,3 +19,6 @@ build/
 .idea/
 *.sublime-project
 *.sublime-workspace
+
+# Tanstack
+.tanstack
