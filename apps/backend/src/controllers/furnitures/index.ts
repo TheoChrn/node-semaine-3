@@ -15,8 +15,6 @@ export const furniture = {
     try {
       const { value, keyword, type, rawMaterials } = request.body;
 
-      console.log(request.body);
-
       const input = {
         value,
         keyword,
