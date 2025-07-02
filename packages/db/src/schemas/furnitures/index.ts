@@ -1,8 +1,19 @@
 import { relations } from "drizzle-orm";
-import { pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
-import { furnitureTypes } from "../furnitures-type";
+import { pgEnum, pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 import { users } from "../users";
 import { furnituresRawMaterials } from "../furnitures-materials";
+
+export const furnitureTypesValues = ["armoire", "étagère"] as const;
+
+export type FurnitureTypesValues = typeof furnitureTypesValues;
+export type FurnitureTypesValue = FurnitureTypesValues[number];
+
+export const furnitureTypesRecord = {
+  ARMOIRE: "armoire",
+  ETAGERE: "étagère",
+} as const satisfies Record<string, FurnitureTypesValue>;
+
+export const furnitureTypesEnum = pgEnum("type", furnitureTypesValues);
 
 export const furnitures = pgTable("furnitures", {
   id: uuid("id").defaultRandom().primaryKey(),
@@ -10,19 +21,13 @@ export const furnitures = pgTable("furnitures", {
   createdBy: uuid("created_by")
     .references(() => users.id, { onDelete: "cascade" })
     .notNull(),
-  typeId: uuid("type_id")
-    .references(() => furnitureTypes.id, { onDelete: "cascade" })
-    .notNull(),
-  keyword: varchar("keyword", { length: 255 }).notNull(),
+  type: furnitureTypesEnum("type").notNull(),
+  keyword: varchar("keyword", { length: 255 }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
 export const furnituresRelations = relations(furnitures, ({ one, many }) => ({
-  type: one(furnitureTypes, {
-    fields: [furnitures.typeId],
-    references: [furnitureTypes.id],
-  }),
   user: one(users, {
     fields: [furnitures.createdBy],
     references: [users.id],

@@ -1,7 +1,14 @@
+interface EnvConfig {
+  PORT: number;
+  NODE_ENV: "development" | "production" | "test";
+  CORS_ORIGIN: string;
+  POSTGRES_URL: string;
+  JWT_SECRET: string;
+}
+
 import * as dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
-import { EnvConfig } from "../types";
 
 const NODE_ENV = process.env.NODE_ENV || "development";
 const envFile = NODE_ENV === "production" ? ".env.production" : ".env";

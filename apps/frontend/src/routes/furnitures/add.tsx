@@ -4,6 +4,10 @@ import {
   createFurnitureSchema,
   type CreateFurnitureInput,
 } from "@projet-node-semaine-3/shared/validators";
+import {
+  furnitureTypesRecord,
+  type FurnitureTypesValue,
+} from "@projet-node-semaine-3/shared/enums";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
@@ -48,7 +52,7 @@ function RouteComponent() {
       value: "",
       keyword: "",
       createdBy: "5bfe7dec-a83c-4348-8d5e-c157e678de8e",
-      typeId: "1bb4a23d-671b-4415-b52d-5c2694a6bd35",
+      type: furnitureTypesRecord.ARMOIRE as FurnitureTypesValue,
       rawMaterials: [
         "0e1e48d9-6eb3-49ab-b056-2a1b85f4e1f3",
         "29992cc7-2421-43a0-a232-a9329f9afa61",

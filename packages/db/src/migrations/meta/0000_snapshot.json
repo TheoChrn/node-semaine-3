@@ -1,5 +1,5 @@
 {
-  "id": "97e8f2f8-ba4f-4e24-8df0-ae72927c7a62",
+  "id": "0394bbd0-cd35-4b3f-abd2-04ba1f5b865c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -53,49 +53,68 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.furniture_types": {
-      "name": "furniture_types",
+    "public.furniture_materials": {
+      "name": "furniture_materials",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
+        "furniture_id": {
+          "name": "furniture_id",
           "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "value": {
-          "name": "value",
-          "type": "furniture_types_value",
-          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
         },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp",
+        "material_id": {
+          "name": "material_id",
+          "type": "uuid",
           "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
+          "notNull": true
         }
       },
       "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
+      "foreignKeys": {
+        "furniture_materials_furniture_id_furnitures_id_fk": {
+          "name": "furniture_materials_furniture_id_furnitures_id_fk",
+          "tableFrom": "furniture_materials",
+          "tableTo": "furnitures",
+          "columnsFrom": [
+            "furniture_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "furniture_materials_material_id_raw_materials_id_fk": {
+          "name": "furniture_materials_material_id_raw_materials_id_fk",
+          "tableFrom": "furniture_materials",
+          "tableTo": "raw_materials",
+          "columnsFrom": [
+            "material_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "furniture_materials_furniture_id_material_id_pk": {
+          "name": "furniture_materials_furniture_id_material_id_pk",
+          "columns": [
+            "furniture_id",
+            "material_id"
+          ]
+        }
+      },
       "uniqueConstraints": {},
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.funitures": {
-      "name": "funitures",
+    "public.furnitures": {
+      "name": "furnitures",
       "schema": "",
       "columns": {
         "id": {
@@ -117,9 +136,10 @@
           "primaryKey": false,
           "notNull": true
         },
-        "type_id": {
-          "name": "type_id",
-          "type": "uuid",
+        "type": {
+          "name": "type",
+          "type": "type",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
         },
@@ -127,7 +147,7 @@
           "name": "keyword",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "created_at": {
           "name": "created_at",
@@ -146,25 +166,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "funitures_created_by_users_id_fk": {
-          "name": "funitures_created_by_users_id_fk",
-          "tableFrom": "funitures",
+        "furnitures_created_by_users_id_fk": {
+          "name": "furnitures_created_by_users_id_fk",
+          "tableFrom": "furnitures",
           "tableTo": "users",
           "columnsFrom": [
             "created_by"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "funitures_type_id_furniture_types_id_fk": {
-          "name": "funitures_type_id_furniture_types_id_fk",
-          "tableFrom": "funitures",
-          "tableTo": "furniture_types",
-          "columnsFrom": [
-            "type_id"
           ],
           "columnsTo": [
             "id"
@@ -382,8 +389,8 @@
         "pPlastique"
       ]
     },
-    "public.furniture_types_value": {
-      "name": "furniture_types_value",
+    "public.type": {
+      "name": "type",
       "schema": "public",
       "values": [
         "armoire",

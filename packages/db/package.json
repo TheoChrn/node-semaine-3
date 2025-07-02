@@ -9,7 +9,6 @@
       "default": "./src/index.ts"
     }
   },
- 
   "license": "MIT",
   "scripts": {
     "build": "tsc && tsc-alias",
@@ -29,14 +28,14 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@projet-node-semaine-3/tsconfig": "workspace:*",
     "@projet-node-semaine-3/shared": "workspace:*",
+    "@projet-node-semaine-3/tsconfig": "workspace:*",
     "@types/pg": "^8.15.4",
     "dotenv-cli": "catalog:",
     "drizzle-kit": "^0.31.4",
     "prettier": "catalog:",
+    "tsc-alias": "catalog:",
     "tsx": "^4.20.3",
-    "typescript": "catalog:",
-    "tsc-alias": "catalog:"
+    "typescript": "catalog:"
   }
 }

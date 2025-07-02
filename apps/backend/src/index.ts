@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-import { env } from "@projet-node-semaine-3/shared";
+import { env } from "@projet-node-semaine-3/shared/config";
 import router from "@/routes";
 
 const app = express();

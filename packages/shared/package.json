@@ -4,12 +4,17 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./src/index.ts"
-    },
     "./validators": {
+      "types": "./dist/validators.d.ts",
       "default": "./src/validators.ts"
+    },
+    "./enums": {
+      "types": "./dist/enums.d.ts",
+      "default": "./src/enums.ts"
+    },
+    "./config": {
+      "types": "./dist/config.d.ts",
+      "default": "./src/config.ts"
     }
   },
   "license": "MIT",
@@ -22,16 +27,12 @@
   "dependencies": {
     "@types/node": "catalog:",
     "dotenv": "catalog:",
-    "drizzle-orm": "^0.44.2",
-    "pg": "^8.16.3",
     "zod": "catalog:"
   },
   "devDependencies": {
     "@projet-node-semaine-3/tsconfig": "workspace:*",
     "@projet-node-semaine-3/db": "workspace:*",
-    "@types/pg": "^8.15.4",
     "dotenv-cli": "catalog:",
-    "drizzle-kit": "^0.31.4",
     "prettier": "catalog:",
     "tsc-alias": "catalog:",
     "tsx": "^4.20.3",

@@ -1,6 +1,6 @@
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import { env } from "@projet-node-semaine-3/shared";
+import { env } from "@projet-node-semaine-3/shared/config";
 import { schema } from "./schemas";
 
 const { POSTGRES_URL } = env;
