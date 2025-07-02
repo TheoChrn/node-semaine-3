@@ -9,38 +9,64 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as FurnituresRouteImport } from './routes/furnitures'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as FurnituresAddRouteImport } from './routes/furnitures/add'
 
+const FurnituresRoute = FurnituresRouteImport.update({
+  id: '/furnitures',
+  path: '/furnitures',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FurnituresAddRoute = FurnituresAddRouteImport.update({
+  id: '/add',
+  path: '/add',
+  getParentRoute: () => FurnituresRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/furnitures': typeof FurnituresRouteWithChildren
+  '/furnitures/add': typeof FurnituresAddRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/furnitures': typeof FurnituresRouteWithChildren
+  '/furnitures/add': typeof FurnituresAddRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/furnitures': typeof FurnituresRouteWithChildren
+  '/furnitures/add': typeof FurnituresAddRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/furnitures' | '/furnitures/add'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/furnitures' | '/furnitures/add'
+  id: '__root__' | '/' | '/furnitures' | '/furnitures/add'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  FurnituresRoute: typeof FurnituresRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/furnitures': {
+      id: '/furnitures'
+      path: '/furnitures'
+      fullPath: '/furnitures'
+      preLoaderRoute: typeof FurnituresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +74,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/furnitures/add': {
+      id: '/furnitures/add'
+      path: '/add'
+      fullPath: '/furnitures/add'
+      preLoaderRoute: typeof FurnituresAddRouteImport
+      parentRoute: typeof FurnituresRoute
+    }
   }
 }
 
+interface FurnituresRouteChildren {
+  FurnituresAddRoute: typeof FurnituresAddRoute
+}
+
+const FurnituresRouteChildren: FurnituresRouteChildren = {
+  FurnituresAddRoute: FurnituresAddRoute,
+}
+
+const FurnituresRouteWithChildren = FurnituresRoute._addFileChildren(
+  FurnituresRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  FurnituresRoute: FurnituresRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
