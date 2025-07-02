@@ -1,9 +1,10 @@
 import { z } from "zod";
+import { furnitureTypesValues } from "../enums";
 
 export const createFurnitureSchema = z.object({
   keyword: z.string().transform((val) => val || null),
   value: z.string().trim().min(1, "Un nom de meuble est requis"),
-  typeId: z.string().uuid(),
+  type: z.enum(furnitureTypesValues),
   createdBy: z.string().uuid(),
   rawMaterials: z.array(z.string().uuid()),
 });
