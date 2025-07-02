@@ -6,20 +6,25 @@ import { models } from "@/models";
 import { APIResponse } from "@/utils/response";
 import { logger } from "@/utils/logger";
 import { z } from "zod";
+import { env } from "@projet-node-semaine-3/shared";
 
 export type CreateFurnitureInput = z.infer<typeof createFurnitureSchema>;
 
+const { CORS_ORIGIN } = env;
+
 export const furniture = {
   create: async (request: Request, response: Response) => {
-    logger.info("[POST] Créer une feature");
+    logger.info(`[POST] Créer une feature depuis ${CORS_ORIGIN}`);
     try {
-      const { value, keyword, furnitureTypeId, rawMaterialIds } = request.body;
+      const { value, keyword, typeId, rawMaterials } = request.body;
+
+      console.log(request.body);
 
       const input = {
-        value,
+        value: "",
         keyword,
-        typeId: furnitureTypeId,
-        rawMaterials: rawMaterialIds,
+        typeId,
+        rawMaterials,
         createdBy: "5bfe7dec-a83c-4348-8d5e-c157e678de8e",
       } as CreateFurnitureInput;
 

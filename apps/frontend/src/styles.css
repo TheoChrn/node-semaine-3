@@ -1,0 +1,49 @@
+@import "tailwindcss";
+@import "@ariakit/tailwind";
+
+body {
+  @apply m-0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+@theme {
+  /**
+   * Any --color-* variable is automatically accessible in ak-layer, ak-text,
+   * ak-edge, and other color utilities. These names are recommended, but you
+   * can choose any names you prefer.
+   */
+  --color-canvas: #f1f1f1;
+  --color-primary: #007acc;
+  --color-secondary: #ec4899;
+  --color-destructive: #B00020;
+
+  /**
+   * Any --radius-* and --spacing-* variable, including built-in ones like lg,
+   * xl, and numerical values, is automatically available in ak-frame utilities.
+   * Using the same name lets you omit the padding part of the utility.
+   * For example, ak-frame-container applies both --radius-container and
+   * --spacing-container.
+   */
+  --radius-container: var(--radius-xl);
+  --spacing-container: --spacing(1);
+
+  --radius-field: var(--radius-xl);
+  --spacing-field: --spacing(2);
+}
+
+/* Dark theme */
+
+@variant dark {
+  .dark {
+    --color-canvas: #0e0e11;
+  }
+}
