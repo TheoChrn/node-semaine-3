@@ -12,7 +12,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc && tsc-alias",
-    "dev": "tsc",
+    "dev": "tsc --watch",
     "push": "pnpm with-env drizzle-kit push",
     "generate": "drizzle-kit generate",
     "migrate": "drizzle-kit migrate",
