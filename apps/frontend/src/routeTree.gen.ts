@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as FurnituresRouteImport } from './routes/furnitures'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as MaterialsMaterialIdRouteImport } from './routes/materials/$materialId'
 import { Route as FurnituresAddRouteImport } from './routes/furnitures/add'
 
 const FurnituresRoute = FurnituresRouteImport.update({
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MaterialsMaterialIdRoute = MaterialsMaterialIdRouteImport.update({
+  id: '/materials/$materialId',
+  path: '/materials/$materialId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FurnituresAddRoute = FurnituresAddRouteImport.update({
   id: '/add',
   path: '/add',
@@ -33,29 +39,38 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/furnitures': typeof FurnituresRouteWithChildren
   '/furnitures/add': typeof FurnituresAddRoute
+  '/materials/$materialId': typeof MaterialsMaterialIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/furnitures': typeof FurnituresRouteWithChildren
   '/furnitures/add': typeof FurnituresAddRoute
+  '/materials/$materialId': typeof MaterialsMaterialIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/furnitures': typeof FurnituresRouteWithChildren
   '/furnitures/add': typeof FurnituresAddRoute
+  '/materials/$materialId': typeof MaterialsMaterialIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/furnitures' | '/furnitures/add'
+  fullPaths: '/' | '/furnitures' | '/furnitures/add' | '/materials/$materialId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/furnitures' | '/furnitures/add'
-  id: '__root__' | '/' | '/furnitures' | '/furnitures/add'
+  to: '/' | '/furnitures' | '/furnitures/add' | '/materials/$materialId'
+  id:
+    | '__root__'
+    | '/'
+    | '/furnitures'
+    | '/furnitures/add'
+    | '/materials/$materialId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FurnituresRoute: typeof FurnituresRouteWithChildren
+  MaterialsMaterialIdRoute: typeof MaterialsMaterialIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -72,6 +87,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/materials/$materialId': {
+      id: '/materials/$materialId'
+      path: '/materials/$materialId'
+      fullPath: '/materials/$materialId'
+      preLoaderRoute: typeof MaterialsMaterialIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/furnitures/add': {
@@ -99,6 +121,7 @@ const FurnituresRouteWithChildren = FurnituresRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FurnituresRoute: FurnituresRouteWithChildren,
+  MaterialsMaterialIdRoute: MaterialsMaterialIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -6,6 +6,10 @@ interface ButtonLinkProps
   extends LinkComponentProps,
     VariantProps<typeof buttonVariants> {}
 
-export const ButtonLink = ({ className, ...props }: ButtonLinkProps) => (
-  <Link className={buttonVariants({ className })} {...props} />
+export const ButtonLink = ({
+  className,
+  variant,
+  ...props
+}: ButtonLinkProps) => (
+  <Link className={buttonVariants({ className, variant })} {...props} />
 );

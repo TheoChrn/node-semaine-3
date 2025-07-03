@@ -5,7 +5,6 @@ import express from "express";
 
 const router: Router = express.Router();
 
-router.post("/", controllers.furnitures.create);
-router.get("/", controllers.furnitures.getAll);
+router.get("/:id", controllers.materials.get);
 
 export default router;

@@ -1,0 +1,1 @@
+ALTER TABLE "raw_materials" ADD COLUMN "description" text DEFAULT 'test' NOT NULL;
