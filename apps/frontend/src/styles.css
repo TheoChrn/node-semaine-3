@@ -24,7 +24,7 @@ code {
   --color-canvas: #f1f1f1;
   --color-primary: #007acc;
   --color-secondary: #ec4899;
-  --color-destructive: #B00020;
+  --color-destructive: #b00020;
 
   /**
    * Any --radius-* and --spacing-* variable, including built-in ones like lg,

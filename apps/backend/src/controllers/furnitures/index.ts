@@ -20,7 +20,6 @@ export const furniture = {
         keyword,
         type,
         rawMaterials,
-        createdBy: "5bfe7dec-a83c-4348-8d5e-c157e678de8e",
       } as CreateFurnitureInput;
 
       const validation = createFurnitureSchema.safeParse(input);

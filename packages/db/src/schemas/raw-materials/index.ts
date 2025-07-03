@@ -1,29 +1,7 @@
 import { rawMaterialTypes } from "../raw-material-types";
 import { relations } from "drizzle-orm";
 import { pgEnum, pgTable, timestamp, uuid } from "drizzle-orm/pg-core";
-
-const woodMaterials = ["frêne", "chêne", "noyer"] as const;
-const ironMaterials = ["acier", "inox", "aluminium"] as const;
-const plasticMaterials = ["plastique"] as const;
-
-export const rawMaterialsValues = [
-  ...woodMaterials,
-  ...ironMaterials,
-  ...plasticMaterials,
-] as const;
-
-export type RawMaterialsValues = typeof rawMaterialsValues;
-export type RawMaterialsValue = RawMaterialsValues[number];
-
-export const rawMaterialsRecord = {
-  FRENE: "frêne",
-  CHENE: "chêne",
-  NOYER: "noyer",
-  ACIER: "acier",
-  INOX: "inox",
-  ALUMINIUM: "aluminium",
-  PLASTIQUE: "plastique",
-} as const satisfies Record<string, RawMaterialsValue>;
+import { rawMaterialsValues } from "@projet-node-semaine-3/shared/enums";
 
 export const rawMaterialsEnum = pgEnum(
   "raw_materials_value",

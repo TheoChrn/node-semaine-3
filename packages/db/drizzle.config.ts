@@ -1,5 +1,5 @@
+import { env } from "@projet-node-semaine-3/shared/config";
 import type { Config } from "drizzle-kit";
-import { env } from "../shared/dist/config/config";
 
 const { POSTGRES_URL } = env;
 

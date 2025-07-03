@@ -2,6 +2,7 @@
   "extends": "@projet-node-semaine-3/tsconfig/internal-package.json",
   "include": ["**/*.ts", "**/*.tsx"],
   "compilerOptions": {
+    "noErrorTruncation": true,
     "target": "ES2022",
     "jsx": "react-jsx",
     "module": "ESNext",

@@ -1,7 +1,7 @@
 import type { ComponentPropsWithoutRef } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
-const wrapperVariants = tv({ base: "max-w-2xl mx-auto" });
+const wrapperVariants = tv({ base: "max-w-5xl  mx-auto" });
 
 interface WrapperProps
   extends ComponentPropsWithoutRef<"div">,
