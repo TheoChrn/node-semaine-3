@@ -13,6 +13,7 @@ import { Route as FurnituresRouteImport } from './routes/furnitures'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as MaterialsMaterialIdRouteImport } from './routes/materials/$materialId'
 import { Route as FurnituresAddRouteImport } from './routes/furnitures/add'
+import { Route as authAuthRegisterRouteImport } from './routes/(auth)/auth/register'
 
 const FurnituresRoute = FurnituresRouteImport.update({
   id: '/furnitures',
@@ -34,18 +35,25 @@ const FurnituresAddRoute = FurnituresAddRouteImport.update({
   path: '/add',
   getParentRoute: () => FurnituresRoute,
 } as any)
+const authAuthRegisterRoute = authAuthRegisterRouteImport.update({
+  id: '/(auth)/auth/register',
+  path: '/auth/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/furnitures': typeof FurnituresRouteWithChildren
   '/furnitures/add': typeof FurnituresAddRoute
   '/materials/$materialId': typeof MaterialsMaterialIdRoute
+  '/auth/register': typeof authAuthRegisterRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/furnitures': typeof FurnituresRouteWithChildren
   '/furnitures/add': typeof FurnituresAddRoute
   '/materials/$materialId': typeof MaterialsMaterialIdRoute
+  '/auth/register': typeof authAuthRegisterRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,24 +61,37 @@ export interface FileRoutesById {
   '/furnitures': typeof FurnituresRouteWithChildren
   '/furnitures/add': typeof FurnituresAddRoute
   '/materials/$materialId': typeof MaterialsMaterialIdRoute
+  '/(auth)/auth/register': typeof authAuthRegisterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/furnitures' | '/furnitures/add' | '/materials/$materialId'
+  fullPaths:
+    | '/'
+    | '/furnitures'
+    | '/furnitures/add'
+    | '/materials/$materialId'
+    | '/auth/register'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/furnitures' | '/furnitures/add' | '/materials/$materialId'
+  to:
+    | '/'
+    | '/furnitures'
+    | '/furnitures/add'
+    | '/materials/$materialId'
+    | '/auth/register'
   id:
     | '__root__'
     | '/'
     | '/furnitures'
     | '/furnitures/add'
     | '/materials/$materialId'
+    | '/(auth)/auth/register'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FurnituresRoute: typeof FurnituresRouteWithChildren
   MaterialsMaterialIdRoute: typeof MaterialsMaterialIdRoute
+  authAuthRegisterRoute: typeof authAuthRegisterRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -103,6 +124,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FurnituresAddRouteImport
       parentRoute: typeof FurnituresRoute
     }
+    '/(auth)/auth/register': {
+      id: '/(auth)/auth/register'
+      path: '/auth/register'
+      fullPath: '/auth/register'
+      preLoaderRoute: typeof authAuthRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -122,6 +150,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FurnituresRoute: FurnituresRouteWithChildren,
   MaterialsMaterialIdRoute: MaterialsMaterialIdRoute,
+  authAuthRegisterRoute: authAuthRegisterRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
