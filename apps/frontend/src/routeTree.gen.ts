@@ -14,6 +14,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as MaterialsMaterialIdRouteImport } from './routes/materials/$materialId'
 import { Route as FurnituresAddRouteImport } from './routes/furnitures/add'
 import { Route as authAuthRegisterRouteImport } from './routes/(auth)/auth/register'
+import { Route as authAuthLoginRouteImport } from './routes/(auth)/auth/login'
 
 const FurnituresRoute = FurnituresRouteImport.update({
   id: '/furnitures',
@@ -40,12 +41,18 @@ const authAuthRegisterRoute = authAuthRegisterRouteImport.update({
   path: '/auth/register',
   getParentRoute: () => rootRouteImport,
 } as any)
+const authAuthLoginRoute = authAuthLoginRouteImport.update({
+  id: '/(auth)/auth/login',
+  path: '/auth/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/furnitures': typeof FurnituresRouteWithChildren
   '/furnitures/add': typeof FurnituresAddRoute
   '/materials/$materialId': typeof MaterialsMaterialIdRoute
+  '/auth/login': typeof authAuthLoginRoute
   '/auth/register': typeof authAuthRegisterRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/furnitures': typeof FurnituresRouteWithChildren
   '/furnitures/add': typeof FurnituresAddRoute
   '/materials/$materialId': typeof MaterialsMaterialIdRoute
+  '/auth/login': typeof authAuthLoginRoute
   '/auth/register': typeof authAuthRegisterRoute
 }
 export interface FileRoutesById {
@@ -61,6 +69,7 @@ export interface FileRoutesById {
   '/furnitures': typeof FurnituresRouteWithChildren
   '/furnitures/add': typeof FurnituresAddRoute
   '/materials/$materialId': typeof MaterialsMaterialIdRoute
+  '/(auth)/auth/login': typeof authAuthLoginRoute
   '/(auth)/auth/register': typeof authAuthRegisterRoute
 }
 export interface FileRouteTypes {
@@ -70,6 +79,7 @@ export interface FileRouteTypes {
     | '/furnitures'
     | '/furnitures/add'
     | '/materials/$materialId'
+    | '/auth/login'
     | '/auth/register'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -77,6 +87,7 @@ export interface FileRouteTypes {
     | '/furnitures'
     | '/furnitures/add'
     | '/materials/$materialId'
+    | '/auth/login'
     | '/auth/register'
   id:
     | '__root__'
@@ -84,6 +95,7 @@ export interface FileRouteTypes {
     | '/furnitures'
     | '/furnitures/add'
     | '/materials/$materialId'
+    | '/(auth)/auth/login'
     | '/(auth)/auth/register'
   fileRoutesById: FileRoutesById
 }
@@ -91,6 +103,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FurnituresRoute: typeof FurnituresRouteWithChildren
   MaterialsMaterialIdRoute: typeof MaterialsMaterialIdRoute
+  authAuthLoginRoute: typeof authAuthLoginRoute
   authAuthRegisterRoute: typeof authAuthRegisterRoute
 }
 
@@ -131,6 +144,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authAuthRegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(auth)/auth/login': {
+      id: '/(auth)/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof authAuthLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -150,6 +170,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FurnituresRoute: FurnituresRouteWithChildren,
   MaterialsMaterialIdRoute: MaterialsMaterialIdRoute,
+  authAuthLoginRoute: authAuthLoginRoute,
   authAuthRegisterRoute: authAuthRegisterRoute,
 }
 export const routeTree = rootRouteImport
