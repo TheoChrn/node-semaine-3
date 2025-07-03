@@ -78,18 +78,18 @@ function RouteComponent() {
             {furnitures?.length ? (
               <div className="grid grid-cols-3 gap-4">
                 {furnitures.map((furniture) => (
-                  <Ariakit.HeadingLevel>
+                  <Ariakit.HeadingLevel key={furniture.id}>
                     <article key={furniture.id} className="space-y-3">
                       <div className="w-full aspect-square ak-layer-contrast" />
                       <div className="space-y-2">
                         <Ariakit.Heading className="text-2xl font-semibold">
                           {furniture.value}
                         </Ariakit.Heading>
-                        <ul className="flex gap-1">
+                        <ul className="flex flex-wrap gap-x-1 gap-y-2">
                           {Object.values(furniture.materials).map(
                             ({ materials }) =>
                               materials.map((m) => (
-                                <li>
+                                <li key={m.id}>
                                   <span className="ak-frame ak-layer-pop py-1 px-3 capitalize">
                                     {m.value}
                                   </span>

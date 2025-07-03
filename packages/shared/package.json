@@ -23,7 +23,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc && tsc-alias",
-    "dev": "tsc",
+    "dev": "tsc --watch",
     "push": "pnpm with-env drizzle-kit push",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },

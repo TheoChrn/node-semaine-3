@@ -1,18 +1,25 @@
 import { DialogDismiss, DialogHeading } from "@ariakit/react";
 
 import {
+  furnitureTypesRecord,
+  furnitureTypesValues,
+  rawMaterialsByType,
+  type FurnitureTypesValue,
+  type RawMaterialsValue,
+} from "@projet-node-semaine-3/shared/enums";
+import {
   createFurnitureSchema,
   type CreateFurnitureInput,
 } from "@projet-node-semaine-3/shared/validators";
-import {
-  furnitureTypesRecord,
-  type FurnitureTypesValue,
-} from "@projet-node-semaine-3/shared/enums";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import { Dialog } from "~/components/dialog";
 import { useAppForm } from "~/hooks/form";
+import * as Ariakit from "@ariakit/react";
+
+import { buttonVariants } from "~/components/button";
+import { Fragment } from "react/jsx-runtime";
 
 export const Route = createFileRoute("/furnitures/add")({
   component: RouteComponent,
@@ -49,12 +56,8 @@ function RouteComponent() {
   const form = useAppForm({
     defaultValues: {
       value: "",
-      keyword: "",
       type: furnitureTypesRecord.ARMOIRE as FurnitureTypesValue,
-      rawMaterials: [
-        "325c93bf-3565-4a7a-8b76-718fbb519c42",
-        "4185aa7a-a25b-4184-9eee-5445b4d8e4a7",
-      ],
+      rawMaterials: [] as RawMaterialsValue[],
     },
     validators: { onChange: createFurnitureSchema },
     onSubmit: ({ value }) => {
@@ -83,9 +86,107 @@ function RouteComponent() {
         <form.AppField name="value">
           {(field) => <field.TextField label="Title" />}
         </form.AppField>
-        <form.AppField name="keyword">
-          {(field) => <field.TextField label="Keyword" />}
-        </form.AppField>
+
+        <form.Field name="rawMaterials">
+          {(field) => (
+            <Ariakit.SelectProvider
+              value={field.state.value}
+              setValue={(values: RawMaterialsValue[]) =>
+                field.handleChange(values)
+              }
+            >
+              <div>
+                <Ariakit.SelectLabel>Matériaux</Ariakit.SelectLabel>
+                <Ariakit.Select
+                  className={buttonVariants({
+                    className: "items-center aria-expanded:rounded-b-none",
+                  })}
+                >
+                  {`${field.state.value.length} matériaux sélectionné${
+                    field.state.value.length > 1 ? `s` : ``
+                  }`}
+                  <Ariakit.SelectArrow />
+                </Ariakit.Select>
+              </div>
+
+              <Ariakit.SelectPopover
+                flip="bottom"
+                sameWidth
+                className="ak-layer-5 space-y-2 overflow-y-auto max-h-52 ak-frame rounded-t-none"
+              >
+                {Object.entries(rawMaterialsByType).map(([key, value]) => (
+                  <Fragment key={key}>
+                    <div className="space-y-4">
+                      <span className="capitalize">{key}</span>
+
+                      <ul>
+                        {value.map((material) => (
+                          <Ariakit.SelectItem
+                            key={material}
+                            value={material}
+                            render={<li />}
+                            className="flex items-center-safe px-3 py-2 cursor-pointer hover:ak-layer-hover-primary capitalize"
+                          >
+                            <Ariakit.SelectItemCheck
+                              checked={field.state.value.includes(material)}
+                            />
+                            {material}
+                          </Ariakit.SelectItem>
+                        ))}
+                      </ul>
+                    </div>
+                    <Ariakit.Separator />
+                  </Fragment>
+                ))}
+              </Ariakit.SelectPopover>
+            </Ariakit.SelectProvider>
+          )}
+        </form.Field>
+
+        <form.Field name="type">
+          {(field) => (
+            <Ariakit.SelectProvider
+              value={field.state.value}
+              setValue={(value: FurnitureTypesValue) =>
+                field.handleChange(value)
+              }
+            >
+              <div>
+                <Ariakit.SelectLabel>Type de meuble</Ariakit.SelectLabel>
+                <Ariakit.Select
+                  className={buttonVariants({
+                    className:
+                      "items-center aria-expanded:rounded-b-none capitalize",
+                  })}
+                >
+                  {field.state.value}
+                  <Ariakit.SelectArrow />
+                </Ariakit.Select>
+              </div>
+
+              <Ariakit.SelectPopover
+                flip="bottom"
+                sameWidth
+                className="ak-layer-5 space-y-2 overflow-y-auto max-h-52 ak-frame rounded-t-none"
+              >
+                {furnitureTypesValues.map((type) => (
+                  <Ariakit.SelectItem
+                    key={type}
+                    value={type}
+                    render={<li />}
+                    className="flex items-center-safe px-3 py-2 cursor-pointer hover:ak-layer-hover-primary capitalize"
+                  >
+                    <Ariakit.SelectItemCheck
+                      checked={field.state.value.includes(type)}
+                    />
+                    {type}
+                  </Ariakit.SelectItem>
+                ))}
+              </Ariakit.SelectPopover>
+            </Ariakit.SelectProvider>
+          )}
+        </form.Field>
+
         <div className="flex justify-end">
           {error && (
             <div className="ak-layer-destructive-10 border ak-frame p-3">
