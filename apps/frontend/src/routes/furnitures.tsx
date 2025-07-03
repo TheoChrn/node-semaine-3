@@ -3,7 +3,7 @@ import {
   furnitureTypesRecord,
   type FurnitureTypesValue,
 } from "@projet-node-semaine-3/shared/enums";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import { matchSorter } from "match-sorter";
@@ -11,32 +11,15 @@ import { useState } from "react";
 import { Button } from "~/components/button";
 import { ButtonLink } from "~/components/button-link";
 import { Wrapper } from "~/components/wrapper";
-import type { GetAllFurniture } from "~/types";
+import { queryOptions } from "~/lib/query-options";
 
-const furnituresQueryOptions = queryOptions({
-  queryKey: ["furnitures"],
-  queryFn: () => fetchFurnitures(),
-});
-export const fetchFurnitures = async (): Promise<GetAllFurniture | null> => {
-  try {
-    const res = await fetch("http://localhost:3000/api/furnitures");
-    if (!res.ok) {
-      return null;
-    }
-    const furnitures = await res.json();
-    return furnitures.data;
-  } catch (err) {
-    console.error(err);
-    return null;
-  }
-};
 export const Route = createFileRoute("/furnitures")({
   loader: ({ context: { queryClient } }) =>
-    queryClient.ensureQueryData(furnituresQueryOptions),
+    queryClient.ensureQueryData(queryOptions.getAllUnGroupped),
   component: RouteComponent,
 });
 function RouteComponent() {
-  const { data } = useSuspenseQuery(furnituresQueryOptions);
+  const { data } = useSuspenseQuery(queryOptions.getAllUnGroupped);
   const [furnitureType, setFurnitureType] =
     useState<FurnitureTypesValue>("armoire");
 
