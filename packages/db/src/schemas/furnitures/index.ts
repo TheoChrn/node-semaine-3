@@ -2,16 +2,7 @@ import { relations } from "drizzle-orm";
 import { pgEnum, pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 import { users } from "../users";
 import { furnituresRawMaterials } from "../furnitures-materials";
-
-export const furnitureTypesValues = ["armoire", "étagère"] as const;
-
-export type FurnitureTypesValues = typeof furnitureTypesValues;
-export type FurnitureTypesValue = FurnitureTypesValues[number];
-
-export const furnitureTypesRecord = {
-  ARMOIRE: "armoire",
-  ETAGERE: "étagère",
-} as const satisfies Record<string, FurnitureTypesValue>;
+import { furnitureTypesValues } from "@projet-node-semaine-3/shared/enums";
 
 export const furnitureTypesEnum = pgEnum("type", furnitureTypesValues);
 

@@ -15,6 +15,9 @@
     "./config": {
       "types": "./dist/config.d.ts",
       "default": "./src/config.ts"
+    },
+    "./format": {
+      "default": "./src/format.ts"
     }
   },
   "license": "MIT",

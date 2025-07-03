@@ -38,7 +38,6 @@ function RouteComponent() {
       }
     },
     onSuccess: async () => {
-      console.log("success");
       await queryClient.invalidateQueries({ queryKey: ["furnitures"] });
       navigate({
         to: "/furnitures",
@@ -51,11 +50,10 @@ function RouteComponent() {
     defaultValues: {
       value: "",
       keyword: "",
-      createdBy: "5bfe7dec-a83c-4348-8d5e-c157e678de8e",
       type: furnitureTypesRecord.ARMOIRE as FurnitureTypesValue,
       rawMaterials: [
-        "0e1e48d9-6eb3-49ab-b056-2a1b85f4e1f3",
-        "29992cc7-2421-43a0-a232-a9329f9afa61",
+        "325c93bf-3565-4a7a-8b76-718fbb519c42",
+        "4185aa7a-a25b-4184-9eee-5445b4d8e4a7",
       ],
     },
     validators: { onChange: createFurnitureSchema },
