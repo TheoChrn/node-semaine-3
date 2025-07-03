@@ -1,14 +1,23 @@
 import { useStore } from "@tanstack/react-form";
 
 import { useFieldContext, useFormContext } from "../hooks/form-context";
-import { Button } from "~/components/button";
+import { Button, type ButtonProps } from "~/components/button";
+import type { ComponentPropsWithRef } from "react";
 
-export function SubscribeButton({ label }: { label: string }) {
+interface SubscribeButtonProps extends ButtonProps {
+  label: string;
+}
+export function SubscribeButton({ label, ...props }: SubscribeButtonProps) {
   const form = useFormContext();
   return (
     <form.Subscribe selector={(state) => [state.isSubmitting, state.canSubmit]}>
       {([isSubmitting, canSubmit]) => (
-        <Button type="submit" disabled={isSubmitting || !canSubmit}>
+        <Button
+          type="submit"
+          variant="primary"
+          disabled={isSubmitting || !canSubmit}
+          {...props}
+        >
           {label}
         </Button>
       )}
@@ -26,7 +35,7 @@ function ErrorMessages({
       {errors.map((error) => (
         <div
           key={typeof error === "string" ? error : error.message}
-          className="ak-text-destructive/10 mt-1 font-bold"
+          className="ak-text-destructive/10 mt-1 font-bold text-sm"
         >
           {typeof error === "string" ? error : error.message}
         </div>
@@ -35,26 +44,31 @@ function ErrorMessages({
   );
 }
 
+interface TextFieldProps extends ComponentPropsWithRef<"input"> {
+  label: string;
+}
 export function TextField({
   label,
   placeholder,
-}: {
-  label: string;
-  placeholder?: string;
-}) {
+  className,
+  ...props
+}: TextFieldProps) {
   const field = useFieldContext<string>();
   const errors = useStore(field.store, (state) => state.meta.errors);
 
   return (
     <div>
-      <label htmlFor={label} className="block font-bold mb-1 text-xl">
+      <label
+        htmlFor={label}
+        className="block capitalize font-bold mb-1 text-xl"
+      >
         {label}
         <input
+          {...props}
           value={field.state.value}
-          placeholder={placeholder}
           onBlur={field.handleBlur}
           onChange={(e) => field.handleChange(e.target.value)}
-          className="w-full px-4 py-2 rounded-md border ak-layer focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className={`w-full px-4 py-2 rounded-md border ak-layer text-basez focus:outline-none focus:ring-2 focus:ring-indigo-500 ${className}`}
         />
       </label>
       {<ErrorMessages errors={errors} />}

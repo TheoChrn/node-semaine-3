@@ -22,14 +22,14 @@ function App() {
           {furnitures ? (
             <>
               {Object.entries(furnitures ?? []).map(([key, value]) => (
-                <div className="flex-1 space-y-4">
+                <div className="flex-1 space-y-4" key={key}>
                   <Ariakit.HeadingLevel key={key}>
                     <Ariakit.Heading className="text-2xl font-semibold capitalize">
                       {`${key}s`}
                     </Ariakit.Heading>
                     <div className="grid lg:grid-cols-2 gap-4">
                       {value.map((furniture) => (
-                        <Ariakit.HeadingLevel>
+                        <Ariakit.HeadingLevel key={furniture.id}>
                           <article
                             key={furniture.id}
                             className="flex border ak-frame ak-layer-down p-3 gap-4"
