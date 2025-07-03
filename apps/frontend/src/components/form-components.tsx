@@ -57,7 +57,7 @@ export function TextField({
           className="w-full px-4 py-2 rounded-md border ak-layer focus:outline-none focus:ring-2 focus:ring-indigo-500"
         />
       </label>
-      {field.state.meta.isTouched && <ErrorMessages errors={errors} />}
+      {<ErrorMessages errors={errors} />}
     </div>
   );
 }
