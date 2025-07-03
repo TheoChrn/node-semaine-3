@@ -11,7 +11,7 @@ import { z } from "zod";
 
 export type CreateFurnitureInput = z.infer<typeof createFurnitureSchema>;
 
-export const furniture = {
+export const furnitures = {
   create: async (request: Request, response: Response) => {
     logger.info("[POST] Créer un meuble depuis");
     try {

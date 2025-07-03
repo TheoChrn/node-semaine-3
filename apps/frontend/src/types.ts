@@ -28,3 +28,8 @@ export type GetAllFurniture = {
     }[]
   >;
 };
+
+export type GetMaterialById = {
+  value: RawMaterialsValues;
+  description: string;
+};

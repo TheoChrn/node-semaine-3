@@ -15,11 +15,11 @@ import { queryOptions } from "~/lib/query-options";
 
 export const Route = createFileRoute("/furnitures")({
   loader: ({ context: { queryClient } }) =>
-    queryClient.ensureQueryData(queryOptions.getAllUnGroupped),
+    queryClient.ensureQueryData(queryOptions.getAllUnGroupped()),
   component: RouteComponent,
 });
 function RouteComponent() {
-  const { data } = useSuspenseQuery(queryOptions.getAllUnGroupped);
+  const { data } = useSuspenseQuery(queryOptions.getAllUnGroupped());
   const [furnitureType, setFurnitureType] =
     useState<FurnitureTypesValue>("armoire");
 
