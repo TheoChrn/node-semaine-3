@@ -3,7 +3,7 @@ import { jsonAgg } from "@/utils/agg";
 import { db, schema } from "@projet-node-semaine-3/db";
 import { eq, sql } from "drizzle-orm";
 
-import { arrayToObject } from "@projet-node-semaine-3/shared/format";
+import { arrayToObject, groupBy } from "@projet-node-semaine-3/shared/format";
 
 export const furnitures = {
   create: async (input: CreateFurnitureInput) => {
@@ -71,11 +71,18 @@ export const furnitures = {
         schema.furnitures.keyword,
         schema.furnitures.type
       )
-      .then((rows) =>
-        rows.map(({ materialsByType, ...row }) => ({
+      .then((rows) => {
+        const unGroupped = rows.map(({ materialsByType, ...row }) => ({
           ...row,
           materials: arrayToObject(materialsByType, "type"),
-        }))
-      );
+        }));
+
+        const groupped = groupBy(unGroupped, "type");
+
+        return {
+          unGroupped,
+          groupped,
+        };
+      });
   },
 };
