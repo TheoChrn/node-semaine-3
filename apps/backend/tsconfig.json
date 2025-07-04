@@ -2,6 +2,7 @@
   "extends": "@projet-node-semaine-3/tsconfig/internal-package.json",
   "compilerOptions": {
     "noErrorTruncation": true,
+    "emitDeclarationOnly": false,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
