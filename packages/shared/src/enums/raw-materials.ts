@@ -1,7 +1,5 @@
-import {
-  rawMaterialsTypeRecord,
-  RawMaterialTypesValue,
-} from "./raw-material-types";
+import { rawMaterialsTypeRecord } from "./raw-material-types";
+import type { RawMaterialTypesValue } from "./raw-material-types";
 
 const woodMaterials = ["frêne", "chêne", "noyer"] as const;
 const ironMaterials = ["acier", "inox", "aluminium"] as const;

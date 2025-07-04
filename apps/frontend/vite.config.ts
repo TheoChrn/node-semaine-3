@@ -13,6 +13,7 @@ export default defineConfig(({}) => {
       viteReact(),
       tailwindcss(),
     ],
+    publicDir: "public",
     envDir: path.resolve(__dirname, "../../"),
     resolve: {
       alias: {
