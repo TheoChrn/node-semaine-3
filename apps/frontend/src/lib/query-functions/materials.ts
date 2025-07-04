@@ -2,7 +2,7 @@ import type { GetMaterialById } from "~/types";
 
 export const fetchMaterials = async (id: string): Promise<GetMaterialById> => {
   try {
-    const res = await fetch(`http://localhost:3000/api/materials/${id}`);
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/materials/${id}`);
     if (!res.ok) {
       throw new Error(res.statusText);
     }

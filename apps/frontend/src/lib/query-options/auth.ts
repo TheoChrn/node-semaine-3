@@ -5,7 +5,7 @@ export const currentUserQueryOptions = () =>
     queryKey: ["currentUser"],
     queryFn: async () => {
       try {
-        const res = await fetch(`http://localhost:3000/api/users`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/users`, {
           method: "GET",
           credentials: "include",
           headers: {

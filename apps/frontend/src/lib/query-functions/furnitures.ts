@@ -2,7 +2,7 @@ import type { GetAllFurniture } from "~/types";
 
 export const fetchFurnitures = async (): Promise<GetAllFurniture | null> => {
   try {
-    const res = await fetch("http://localhost:3000/api/furnitures");
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/furnitures`);
     if (!res.ok) {
       return null;
     }

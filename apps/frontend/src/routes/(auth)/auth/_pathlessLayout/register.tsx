@@ -16,7 +16,7 @@ function RouteComponent() {
 
   const { mutate, error } = useMutation({
     mutationFn: async (credentials: RegisterUserInput) => {
-      const res = await fetch(`http://localhost:3000/api/auth/register`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
         method: "POST",
         credentials: "include",
         headers: {
