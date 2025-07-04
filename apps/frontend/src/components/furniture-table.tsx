@@ -42,8 +42,8 @@ export const FurnitureTable = (props: { user: AuthContext["user"] }) => {
   });
 
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full ">
+    <div className="overflow-x-auto flex-1">
+      <table className="w-max">
         <thead>
           <tr>
             <th />

@@ -18,8 +18,8 @@ export const MaterialsGraph = () => {
   );
 
   return (
-    <div className="h-64">
-      <ResponsiveContainer height="100%" width="50%">
+    <div className="h-100 flex-1">
+      <ResponsiveContainer height="100%" width="100%">
         <BarChart height={400} width={1000} data={materialStats}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="value" tickFormatter={(value) => capitalize(value)} />

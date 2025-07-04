@@ -57,8 +57,10 @@ function RouteComponent() {
                 Créer <Plus />
               </ButtonLink>
             </div>
-            <FurnitureTable user={user} />
-            <MaterialsGraph />
+            <div className="flex gap-3">
+              <FurnitureTable user={user} />
+              <MaterialsGraph />
+            </div>
           </div>
         </div>
       </Ariakit.HeadingLevel>
