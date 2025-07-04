@@ -2,7 +2,7 @@ import {
   registerUserSchema,
   type RegisterUserInput,
 } from "@projet-node-semaine-3/shared/validators";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Wrapper } from "~/components/wrapper";
 import { useAppForm } from "~/hooks/form";
@@ -13,6 +13,7 @@ export const Route = createFileRoute("/(auth)/auth/_pathlessLayout/register")({
 
 function RouteComponent() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const { mutate, error } = useMutation({
     mutationFn: async (credentials: RegisterUserInput) => {
@@ -25,12 +26,16 @@ function RouteComponent() {
         body: JSON.stringify(credentials),
       });
 
+      const data = await res.json();
+
       if (!res.ok) {
-        const error = await res.json();
-        throw new Error(error.message);
+        throw new Error(data.message);
       }
+
+      return data.data;
     },
-    onSuccess: async () => {
+    onSuccess: async (data) => {
+      await queryClient.setQueryData(["currentUser"], data);
       navigate({
         to: "/admin/furnitures",
         replace: true,

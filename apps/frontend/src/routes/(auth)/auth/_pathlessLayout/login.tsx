@@ -3,7 +3,7 @@ import {
   type LoginUserInput,
 } from "@projet-node-semaine-3/shared/validators";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Wrapper } from "~/components/wrapper";
 import { useAppForm } from "~/hooks/form";
 
@@ -30,7 +30,8 @@ function RouteComponent() {
 
       if (!res.ok) {
         const error = data.message;
-        throw new Error(error.message);
+
+        throw new Error(error);
       }
 
       return data.data;
@@ -54,6 +55,8 @@ function RouteComponent() {
     },
     validators: { onChange: loginUserSchema },
   });
+
+  console.log(error?.message);
 
   return (
     <Wrapper className="flex-1  place-content-center max-w-md w-full">
@@ -91,6 +94,12 @@ function RouteComponent() {
             </form.AppForm>
           </div>
         </form>
+        <div className="text-center ak-text">
+          Vous n'avez pas encore de compte ?{" "}
+          <Link to="/auth/register" className="ak-text-primary font-semibold">
+            Inscrivez-vous
+          </Link>
+        </div>
       </div>
     </Wrapper>
   );
