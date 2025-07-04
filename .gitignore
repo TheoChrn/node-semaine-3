@@ -1,6 +1,6 @@
 # dépendances
 node_modules/
-.env
+.env*
 .cache
 
 # logs

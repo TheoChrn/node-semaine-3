@@ -10,7 +10,6 @@ import {
 import {
   furnitureFormSchema,
   type FurnitureFormInput,
-  type UpdateFurnitureInput,
 } from "@projet-node-semaine-3/shared/validators";
 import {
   useMutation,
@@ -76,6 +75,7 @@ function RouteComponent() {
       value: furniture!.value,
       type: furniture!.type,
       rawMaterials: furniture!.materials,
+      quantity: furniture!.quantity.toString(),
     },
     validators: { onChange: furnitureFormSchema },
     onSubmit: ({ value }) => {
@@ -103,6 +103,9 @@ function RouteComponent() {
         </div>
         <form.AppField name="value">
           {(field) => <field.TextField label="Title" />}
+        </form.AppField>
+        <form.AppField name="quantity">
+          {(field) => <field.TextField label="Quantité" type="number" />}
         </form.AppField>
 
         <form.Field name="rawMaterials">

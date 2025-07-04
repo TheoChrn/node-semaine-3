@@ -15,7 +15,7 @@ export const furnitures = {
   create: async (request: Request, response: Response) => {
     logger.info("[POST] Créer un meuble depuis");
     try {
-      const { value, type, rawMaterials } = request.body;
+      const { value, type, rawMaterials, quantity } = request.body;
       const { user } = response.locals;
 
       const validation = furnitureFormSchema.safeParse(request.body);
@@ -23,6 +23,7 @@ export const furnitures = {
       const input = {
         value,
         type,
+        quantity,
         rawMaterials: rawMaterials,
         createdBy: user.id,
       } as CreateFurnitureInput;
@@ -55,7 +56,7 @@ export const furnitures = {
   update: async (request: Request, response: Response) => {
     logger.info("[PATCH] Mise à jour d'un meuble");
     try {
-      const { value, type, rawMaterials } = request.body;
+      const { value, type, rawMaterials, quantity } = request.body;
       const { id } = request.params;
 
       const { user } = response.locals;
@@ -64,6 +65,7 @@ export const furnitures = {
         value,
         type,
         rawMaterials,
+        quantity,
         createdBy: user.id,
         id,
       } as UpdateFurnitureInput;

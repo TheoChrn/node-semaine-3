@@ -60,6 +60,7 @@ function RouteComponent() {
       value: "",
       type: furnitureTypesRecord.ARMOIRE as FurnitureTypesValue,
       rawMaterials: [] as RawMaterialsValue[],
+      quantity: "1",
     },
     validators: { onChange: furnitureFormSchema },
     onSubmit: ({ value }) => {

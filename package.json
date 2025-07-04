@@ -8,6 +8,7 @@
     "build": "pnpm -r run build",
     "generate": "pnpm --filter db generate",
     "migrate": "pnpm --filter db migrate",
+    "migrate:prod": "dotenv -e .env.production -- pnpm --filter db migrate",
     "studio": "pnpm --filter db studio"
   },
   "keywords": [],
