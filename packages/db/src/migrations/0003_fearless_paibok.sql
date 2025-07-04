@@ -1,0 +1,1 @@
+ALTER TABLE "furnitures" DROP COLUMN "keyword";

@@ -1,15 +1,7 @@
 import { relations } from "drizzle-orm";
 import { pgEnum, pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 import { furnitures } from "../furnitures";
-
-const userRole = ["user", "admin"] as const;
-export type UserRoleValues = typeof userRole;
-export type UserRole = UserRoleValues[number];
-
-export const userRolesValues = {
-  USER: "user",
-  ADMIN: "admin",
-} as const satisfies Record<string, UserRole>;
+import { userRole } from "@projet-node-semaine-3/shared/enums";
 
 export const roleEnum = pgEnum("role_value", userRole);
 

@@ -2,6 +2,7 @@ import type {
   FurnitureTypesValue,
   RawMaterialsValues,
   RawMaterialTypesValue,
+  UserRole,
 } from "@projet-node-semaine-3/shared/enums";
 
 export type GetAllFurniture = {
@@ -32,4 +33,10 @@ export type GetAllFurniture = {
 export type GetMaterialById = {
   value: RawMaterialsValues;
   description: string;
+};
+
+export type User = {
+  email: string;
+  id: string;
+  role: UserRole;
 };

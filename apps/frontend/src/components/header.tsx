@@ -9,7 +9,7 @@ export function Header() {
         </div>
 
         <div className="px-2 font-bold">
-          <Link to="/furnitures">Furnitures</Link>
+          <Link to="/admin/furnitures">Furnitures</Link>
         </div>
       </nav>
     </header>

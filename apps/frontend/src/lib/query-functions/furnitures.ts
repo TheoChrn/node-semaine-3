@@ -7,6 +7,7 @@ export const fetchFurnitures = async (): Promise<GetAllFurniture | null> => {
       return null;
     }
     const furnitures = await res.json();
+
     return furnitures.data;
   } catch (err) {
     return null;

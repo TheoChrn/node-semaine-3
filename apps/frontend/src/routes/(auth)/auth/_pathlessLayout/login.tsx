@@ -1,22 +1,23 @@
 import {
-  registerUserSchema,
-  type RegisterUserInput,
+  loginUserSchema,
+  type LoginUserInput,
 } from "@projet-node-semaine-3/shared/validators";
-import { useMutation } from "@tanstack/react-query";
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Wrapper } from "~/components/wrapper";
 import { useAppForm } from "~/hooks/form";
 
-export const Route = createFileRoute("/(auth)/auth/register")({
+export const Route = createFileRoute("/(auth)/auth/_pathlessLayout/login")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const { mutate, error } = useMutation({
-    mutationFn: async (credentials: RegisterUserInput) => {
-      const res = await fetch(`http://localhost:3000/api/auth/register`, {
+    mutationFn: async (credentials: LoginUserInput) => {
+      const res = await fetch(`http://localhost:3000/api/auth/login`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -25,14 +26,19 @@ function RouteComponent() {
         body: JSON.stringify(credentials),
       });
 
+      const data = await res.json();
+
       if (!res.ok) {
-        const error = await res.json();
+        const error = data.message;
         throw new Error(error.message);
       }
+
+      return data.data;
     },
-    onSuccess: async () => {
+    onSuccess: async (data) => {
+      await queryClient.setQueryData(["currentUser"], data);
       navigate({
-        to: "/furnitures",
+        to: "/auth/login",
         replace: true,
       });
     },
@@ -42,12 +48,11 @@ function RouteComponent() {
     defaultValues: {
       email: "",
       password: "",
-      confirmPassword: "",
     },
     onSubmit: ({ value }) => {
       mutate(value);
     },
-    validators: { onChange: registerUserSchema },
+    validators: { onChange: loginUserSchema },
   });
 
   return (
@@ -68,14 +73,6 @@ function RouteComponent() {
             <form.AppField name="password">
               {(field) => <field.TextField label="password" type="password" />}
             </form.AppField>
-            <form.AppField
-              name="confirmPassword"
-              validators={{ onChangeListenTo: ["password"] }}
-            >
-              {(field) => (
-                <field.TextField label="confirm password" type="password" />
-              )}
-            </form.AppField>
           </div>
 
           {error && (
@@ -87,19 +84,13 @@ function RouteComponent() {
           <div className="flex justify-end">
             <form.AppForm>
               <form.SubscribeButton
-                label="S'inscrire"
+                label="Se connecter"
                 variant="primary"
                 className="w-full justify-center"
               />
             </form.AppForm>
           </div>
         </form>
-        <div className="text-center ak-text">
-          Vous avez déjà un compte ?{" "}
-          <Link to="/auth/login" className="ak-text-primary font-semibold">
-            Connectez-vous
-          </Link>
-        </div>
       </div>
     </Wrapper>
   );

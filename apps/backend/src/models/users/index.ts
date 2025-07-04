@@ -20,4 +20,22 @@ export const user = {
       where: (user, { eq }) => eq(user.email, input.email),
     });
   },
+  getSession: async (input: { id: string }) => {
+    try {
+      return db.query.users.findFirst({
+        columns: {
+          id: true,
+          email: true,
+          role: true,
+        },
+        where: (comment, { eq }) => eq(comment.id, input.id),
+      });
+    } catch (error) {
+      logger.error(
+        `Impossible de récupérer le user: ${
+          error instanceof Error ? error.message : "Something went wrong"
+        }`
+      );
+    }
+  },
 };

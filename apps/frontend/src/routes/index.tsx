@@ -19,7 +19,7 @@ function App() {
     <Ariakit.HeadingLevel>
       <div className="p-4 ak-layer">
         <Wrapper className="space-y-8">
-          {furnitures ? (
+          {furnitures && Object.entries(furnitures).length ? (
             <>
               {Object.entries(furnitures ?? []).map(([key, value]) => (
                 <div className="flex-1 space-y-4" key={key}>
