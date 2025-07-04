@@ -1,0 +1,1 @@
+ALTER TABLE "furnitures" ADD COLUMN "quantity" smallint DEFAULT 1 NOT NULL;

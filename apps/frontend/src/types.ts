@@ -9,7 +9,7 @@ export type GetAllFurniture = {
   unGroupped: {
     id: string;
     value: string;
-    keyword: string | null;
+    quantity: number;
     type: FurnitureTypesValue;
     materials: Record<
       RawMaterialTypesValue,
@@ -21,7 +21,7 @@ export type GetAllFurniture = {
     {
       id: string;
       value: string;
-      keyword: string | null;
+      quantity: number;
       materials: Record<
         RawMaterialTypesValue,
         { materials: { id: string; value: RawMaterialsValues }[] }
