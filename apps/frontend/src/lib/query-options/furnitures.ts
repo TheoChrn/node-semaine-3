@@ -7,6 +7,7 @@ export const getAllUnGroupped = () =>
     queryFn: () => queryFunction.fetchFurnitures(),
     select: (res) => res?.unGroupped,
   });
+
 export const getAllGrouppedByFurnitureType = () =>
   queryOptions({
     queryKey: ["furnitures"],

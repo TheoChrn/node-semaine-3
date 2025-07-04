@@ -1,28 +1,28 @@
-import { CreateFurnitureInput } from "@/controllers/furnitures";
 import { jsonAgg } from "@/utils/agg";
 import { db, schema } from "@projet-node-semaine-3/db";
 import { eq, sql } from "drizzle-orm";
 
+import { rawMaterialValueToId } from "@projet-node-semaine-3/shared/enums";
 import { arrayToObject, groupBy } from "@projet-node-semaine-3/shared/format";
+import { CreateFurnitureInput } from "@projet-node-semaine-3/shared/validators";
 
 export const furnitures = {
   create: async (input: CreateFurnitureInput) => {
     const { rawMaterials, ...restInput } = input;
-    return db.transaction(async (tx) => {
-      const [furniture] = await tx
+
+    return await db.transaction(async (tx) => {
+      const furniture = await tx
         .insert(schema.furnitures)
-        .values({
-          ...restInput,
-          createdBy: "e17c1925-c7e6-4807-9491-46c81dea0a81",
-        })
-        .returning({ id: schema.furnitures.id });
+        .values(restInput)
+        .returning({ id: schema.furnitures.id })
+        .then((rows) => rows[0]);
 
       if (!furniture) throw new Error("Insertion meuble a échoué");
 
       await tx.insert(schema.furnituresRawMaterials).values(
-        rawMaterials.map((id) => ({
+        rawMaterials.map((value) => ({
           furnitureId: furniture.id,
-          materialId: id,
+          materialId: rawMaterialValueToId[value],
         }))
       );
     });
@@ -56,7 +56,7 @@ export const furnitures = {
       .select({
         id: schema.furnitures.id,
         value: schema.furnitures.value,
-        keyword: schema.furnitures.keyword,
+
         type: schema.furnitures.type,
         materialsByType: jsonAgg({
           type: materials.type,
@@ -68,7 +68,6 @@ export const furnitures = {
       .groupBy(
         schema.furnitures.id,
         schema.furnitures.value,
-        schema.furnitures.keyword,
         schema.furnitures.type
       )
       .then((rows) => {

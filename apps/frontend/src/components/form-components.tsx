@@ -25,10 +25,10 @@ export function SubscribeButton({ label, ...props }: SubscribeButtonProps) {
   );
 }
 
-function ErrorMessages({
+export function ErrorMessages({
   errors,
 }: {
-  errors: Array<string | { message: string }>;
+  errors: Array<{ message: string; [key: string]: any }>;
 }) {
   return (
     <>
@@ -71,7 +71,7 @@ export function TextField({
           className={`w-full px-4 py-2 rounded-md border ak-layer text-basez focus:outline-none focus:ring-2 focus:ring-indigo-500 ${className}`}
         />
       </label>
-      {<ErrorMessages errors={errors} />}
+      <ErrorMessages errors={errors} />
     </div>
   );
 }

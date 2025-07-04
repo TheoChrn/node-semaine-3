@@ -1,13 +1,11 @@
 import type { Request, Response } from "express";
 
-import { createFurnitureSchema } from "@projet-node-semaine-3/shared/validators";
+import { createFurnitureFormSchema } from "@projet-node-semaine-3/shared/validators";
 
 import { models } from "@/models";
 import { logger } from "@/utils/logger";
 import { APIResponse } from "@/utils/response";
 import { z } from "zod";
-
-export type CreateFurnitureInput = z.infer<typeof createFurnitureSchema>;
 
 export const materials = {
   get: async (request: Request, response: Response) => {

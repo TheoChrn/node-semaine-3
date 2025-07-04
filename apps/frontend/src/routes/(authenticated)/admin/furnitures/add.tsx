@@ -8,8 +8,8 @@ import {
   type RawMaterialsValue,
 } from "@projet-node-semaine-3/shared/enums";
 import {
-  createFurnitureSchema,
-  type CreateFurnitureInput,
+  createFurnitureFormSchema,
+  type CreateFurnitureFormInput,
 } from "@projet-node-semaine-3/shared/validators";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
@@ -20,8 +20,9 @@ import * as Ariakit from "@ariakit/react";
 
 import { buttonVariants } from "~/components/button";
 import { Fragment } from "react/jsx-runtime";
+import { ErrorMessages } from "~/components/form-components";
 
-export const Route = createFileRoute("/furnitures/add")({
+export const Route = createFileRoute("/(authenticated)/admin/furnitures/add")({
   component: RouteComponent,
 });
 
@@ -30,7 +31,7 @@ function RouteComponent() {
   const queryClient = useQueryClient();
 
   const { mutate, error } = useMutation({
-    mutationFn: async (furniture: CreateFurnitureInput) => {
+    mutationFn: async (furniture: CreateFurnitureFormInput) => {
       const res = await fetch(`http://localhost:3000/api/furnitures`, {
         method: "POST",
         credentials: "include",
@@ -47,7 +48,7 @@ function RouteComponent() {
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["furnitures"] });
       navigate({
-        to: "/furnitures",
+        to: "/admin/furnitures",
         replace: true,
       });
     },
@@ -59,14 +60,14 @@ function RouteComponent() {
       type: furnitureTypesRecord.ARMOIRE as FurnitureTypesValue,
       rawMaterials: [] as RawMaterialsValue[],
     },
-    validators: { onChange: createFurnitureSchema },
+    validators: { onChange: createFurnitureFormSchema },
     onSubmit: ({ value }) => {
       mutate(value);
     },
   });
 
   return (
-    <Dialog onClose={() => navigate({ to: "/furnitures" })}>
+    <Dialog onClose={() => navigate({ to: "/admin/furnitures" })}>
       <form
         className="relative space-y-4"
         onSubmit={(e) => {
@@ -89,57 +90,62 @@ function RouteComponent() {
 
         <form.Field name="rawMaterials">
           {(field) => (
-            <Ariakit.SelectProvider
-              value={field.state.value}
-              setValue={(values: RawMaterialsValue[]) =>
-                field.handleChange(values)
-              }
-            >
-              <div>
-                <Ariakit.SelectLabel>Matériaux</Ariakit.SelectLabel>
-                <Ariakit.Select
-                  className={buttonVariants({
-                    className: "items-center aria-expanded:rounded-b-none",
-                  })}
-                >
-                  {`${field.state.value.length} matériaux sélectionné${
-                    field.state.value.length > 1 ? `s` : ``
-                  }`}
-                  <Ariakit.SelectArrow />
-                </Ariakit.Select>
-              </div>
-
-              <Ariakit.SelectPopover
-                flip="bottom"
-                sameWidth
-                className="ak-layer-5 space-y-2 overflow-y-auto max-h-52 ak-frame rounded-t-none"
+            <div>
+              <Ariakit.SelectProvider
+                value={field.state.value}
+                setValue={(values: RawMaterialsValue[]) =>
+                  field.handleChange(values)
+                }
               >
-                {Object.entries(rawMaterialsByType).map(([key, value]) => (
-                  <Fragment key={key}>
-                    <div className="space-y-4">
-                      <span className="capitalize">{key}</span>
+                <div>
+                  <Ariakit.SelectLabel>Matériaux</Ariakit.SelectLabel>
+                  <Ariakit.Select
+                    className={buttonVariants({
+                      className: "items-center aria-expanded:rounded-b-none",
+                    })}
+                  >
+                    {`${field.state.value.length} matériaux sélectionné${
+                      field.state.value.length > 1 ? `s` : ``
+                    }`}
+                    <Ariakit.SelectArrow />
+                  </Ariakit.Select>
+                </div>
 
-                      <ul>
-                        {value.map((material) => (
-                          <Ariakit.SelectItem
-                            key={material}
-                            value={material}
-                            render={<li />}
-                            className="flex items-center-safe px-3 py-2 cursor-pointer hover:ak-layer-hover-primary capitalize"
-                          >
-                            <Ariakit.SelectItemCheck
-                              checked={field.state.value.includes(material)}
-                            />
-                            {material}
-                          </Ariakit.SelectItem>
-                        ))}
-                      </ul>
-                    </div>
-                    <Ariakit.Separator />
-                  </Fragment>
-                ))}
-              </Ariakit.SelectPopover>
-            </Ariakit.SelectProvider>
+                <Ariakit.SelectPopover
+                  flip="bottom"
+                  sameWidth
+                  className="ak-layer-5 space-y-2 overflow-y-auto max-h-52 ak-frame rounded-t-none"
+                >
+                  {Object.entries(rawMaterialsByType).map(([key, value]) => (
+                    <Fragment key={key}>
+                      <div className="space-y-4">
+                        <span className="capitalize">{key}</span>
+
+                        <ul>
+                          {value.map((material) => (
+                            <Ariakit.SelectItem
+                              key={material}
+                              value={material}
+                              render={<li />}
+                              className="flex items-center-safe px-3 py-2 cursor-pointer hover:ak-layer-hover-primary capitalize"
+                            >
+                              <Ariakit.SelectItemCheck
+                                checked={field.state.value.includes(material)}
+                              />
+                              {material}
+                            </Ariakit.SelectItem>
+                          ))}
+                        </ul>
+                      </div>
+                      <Ariakit.Separator />
+                    </Fragment>
+                  ))}
+                </Ariakit.SelectPopover>
+              </Ariakit.SelectProvider>
+              {field.state.meta.errors.length > 0 && (
+                <ErrorMessages errors={field.state.meta.errors as any[]} />
+              )}
+            </div>
           )}
         </form.Field>
 

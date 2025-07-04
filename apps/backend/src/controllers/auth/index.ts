@@ -33,8 +33,6 @@ export const auth = {
 
       const user = await models.user.getByEmail({ email });
 
-      console.log(user);
-
       if (!user) {
         APIResponse({
           response,
@@ -145,5 +143,14 @@ export const auth = {
         status: 500,
       });
     }
+  },
+  logout: async (_: Request, response: Response) => {
+    response.cookie("accessToken", "", {
+      httpOnly: true,
+      sameSite: NODE_ENV === "production" ? "none" : "strict",
+      secure: NODE_ENV === "production",
+      maxAge: 0,
+    });
+    APIResponse({ response, message: "Vous êtes déconnecté" });
   },
 };

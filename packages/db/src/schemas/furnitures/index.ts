@@ -13,7 +13,6 @@ export const furnitures = pgTable("furnitures", {
     .references(() => users.id, { onDelete: "cascade" })
     .notNull(),
   type: furnitureTypesEnum("type").notNull(),
-  keyword: varchar("keyword", { length: 255 }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });

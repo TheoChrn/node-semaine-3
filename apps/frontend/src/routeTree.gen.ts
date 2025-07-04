@@ -8,22 +8,27 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from '@tanstack/react-router'
+
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as FurnituresRouteImport } from './routes/furnitures'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as MaterialsMaterialIdRouteImport } from './routes/materials/$materialId'
-import { Route as FurnituresAddRouteImport } from './routes/furnitures/add'
-import { Route as authAuthRegisterRouteImport } from './routes/(auth)/auth/register'
-import { Route as authAuthLoginRouteImport } from './routes/(auth)/auth/login'
+import { Route as authenticatedAdminFurnituresRouteImport } from './routes/(authenticated)/admin/furnitures'
+import { Route as authAuthPathlessLayoutRouteImport } from './routes/(auth)/auth/_pathlessLayout'
+import { Route as authenticatedAdminFurnituresAddRouteImport } from './routes/(authenticated)/admin/furnitures/add'
+import { Route as authAuthPathlessLayoutRegisterRouteImport } from './routes/(auth)/auth/_pathlessLayout/register'
+import { Route as authAuthPathlessLayoutLoginRouteImport } from './routes/(auth)/auth/_pathlessLayout/login'
 
-const FurnituresRoute = FurnituresRouteImport.update({
-  id: '/furnitures',
-  path: '/furnitures',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const authAuthRouteImport = createFileRoute('/(auth)/auth')()
+
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const authAuthRoute = authAuthRouteImport.update({
+  id: '/(auth)/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MaterialsMaterialIdRoute = MaterialsMaterialIdRouteImport.update({
@@ -31,96 +36,116 @@ const MaterialsMaterialIdRoute = MaterialsMaterialIdRouteImport.update({
   path: '/materials/$materialId',
   getParentRoute: () => rootRouteImport,
 } as any)
-const FurnituresAddRoute = FurnituresAddRouteImport.update({
-  id: '/add',
-  path: '/add',
-  getParentRoute: () => FurnituresRoute,
+const authenticatedAdminFurnituresRoute =
+  authenticatedAdminFurnituresRouteImport.update({
+    id: '/(authenticated)/admin/furnitures',
+    path: '/admin/furnitures',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const authAuthPathlessLayoutRoute = authAuthPathlessLayoutRouteImport.update({
+  id: '/_pathlessLayout',
+  getParentRoute: () => authAuthRoute,
 } as any)
-const authAuthRegisterRoute = authAuthRegisterRouteImport.update({
-  id: '/(auth)/auth/register',
-  path: '/auth/register',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const authAuthLoginRoute = authAuthLoginRouteImport.update({
-  id: '/(auth)/auth/login',
-  path: '/auth/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const authenticatedAdminFurnituresAddRoute =
+  authenticatedAdminFurnituresAddRouteImport.update({
+    id: '/add',
+    path: '/add',
+    getParentRoute: () => authenticatedAdminFurnituresRoute,
+  } as any)
+const authAuthPathlessLayoutRegisterRoute =
+  authAuthPathlessLayoutRegisterRouteImport.update({
+    id: '/register',
+    path: '/register',
+    getParentRoute: () => authAuthPathlessLayoutRoute,
+  } as any)
+const authAuthPathlessLayoutLoginRoute =
+  authAuthPathlessLayoutLoginRouteImport.update({
+    id: '/login',
+    path: '/login',
+    getParentRoute: () => authAuthPathlessLayoutRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/furnitures': typeof FurnituresRouteWithChildren
-  '/furnitures/add': typeof FurnituresAddRoute
   '/materials/$materialId': typeof MaterialsMaterialIdRoute
-  '/auth/login': typeof authAuthLoginRoute
-  '/auth/register': typeof authAuthRegisterRoute
+  '/auth': typeof authAuthPathlessLayoutRouteWithChildren
+  '/admin/furnitures': typeof authenticatedAdminFurnituresRouteWithChildren
+  '/auth/login': typeof authAuthPathlessLayoutLoginRoute
+  '/auth/register': typeof authAuthPathlessLayoutRegisterRoute
+  '/admin/furnitures/add': typeof authenticatedAdminFurnituresAddRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/furnitures': typeof FurnituresRouteWithChildren
-  '/furnitures/add': typeof FurnituresAddRoute
   '/materials/$materialId': typeof MaterialsMaterialIdRoute
-  '/auth/login': typeof authAuthLoginRoute
-  '/auth/register': typeof authAuthRegisterRoute
+  '/auth': typeof authAuthPathlessLayoutRouteWithChildren
+  '/admin/furnitures': typeof authenticatedAdminFurnituresRouteWithChildren
+  '/auth/login': typeof authAuthPathlessLayoutLoginRoute
+  '/auth/register': typeof authAuthPathlessLayoutRegisterRoute
+  '/admin/furnitures/add': typeof authenticatedAdminFurnituresAddRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/furnitures': typeof FurnituresRouteWithChildren
-  '/furnitures/add': typeof FurnituresAddRoute
   '/materials/$materialId': typeof MaterialsMaterialIdRoute
-  '/(auth)/auth/login': typeof authAuthLoginRoute
-  '/(auth)/auth/register': typeof authAuthRegisterRoute
+  '/(auth)/auth': typeof authAuthRouteWithChildren
+  '/(auth)/auth/_pathlessLayout': typeof authAuthPathlessLayoutRouteWithChildren
+  '/(authenticated)/admin/furnitures': typeof authenticatedAdminFurnituresRouteWithChildren
+  '/(auth)/auth/_pathlessLayout/login': typeof authAuthPathlessLayoutLoginRoute
+  '/(auth)/auth/_pathlessLayout/register': typeof authAuthPathlessLayoutRegisterRoute
+  '/(authenticated)/admin/furnitures/add': typeof authenticatedAdminFurnituresAddRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/furnitures'
-    | '/furnitures/add'
     | '/materials/$materialId'
+    | '/auth'
+    | '/admin/furnitures'
     | '/auth/login'
     | '/auth/register'
+    | '/admin/furnitures/add'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/furnitures'
-    | '/furnitures/add'
     | '/materials/$materialId'
+    | '/auth'
+    | '/admin/furnitures'
     | '/auth/login'
     | '/auth/register'
+    | '/admin/furnitures/add'
   id:
     | '__root__'
     | '/'
-    | '/furnitures'
-    | '/furnitures/add'
     | '/materials/$materialId'
-    | '/(auth)/auth/login'
-    | '/(auth)/auth/register'
+    | '/(auth)/auth'
+    | '/(auth)/auth/_pathlessLayout'
+    | '/(authenticated)/admin/furnitures'
+    | '/(auth)/auth/_pathlessLayout/login'
+    | '/(auth)/auth/_pathlessLayout/register'
+    | '/(authenticated)/admin/furnitures/add'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  FurnituresRoute: typeof FurnituresRouteWithChildren
   MaterialsMaterialIdRoute: typeof MaterialsMaterialIdRoute
-  authAuthLoginRoute: typeof authAuthLoginRoute
-  authAuthRegisterRoute: typeof authAuthRegisterRoute
+  authAuthRoute: typeof authAuthRouteWithChildren
+  authenticatedAdminFurnituresRoute: typeof authenticatedAdminFurnituresRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/furnitures': {
-      id: '/furnitures'
-      path: '/furnitures'
-      fullPath: '/furnitures'
-      preLoaderRoute: typeof FurnituresRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(auth)/auth': {
+      id: '/(auth)/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof authAuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/materials/$materialId': {
@@ -130,48 +155,92 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MaterialsMaterialIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/furnitures/add': {
-      id: '/furnitures/add'
+    '/(authenticated)/admin/furnitures': {
+      id: '/(authenticated)/admin/furnitures'
+      path: '/admin/furnitures'
+      fullPath: '/admin/furnitures'
+      preLoaderRoute: typeof authenticatedAdminFurnituresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(auth)/auth/_pathlessLayout': {
+      id: '/(auth)/auth/_pathlessLayout'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof authAuthPathlessLayoutRouteImport
+      parentRoute: typeof authAuthRoute
+    }
+    '/(authenticated)/admin/furnitures/add': {
+      id: '/(authenticated)/admin/furnitures/add'
       path: '/add'
-      fullPath: '/furnitures/add'
-      preLoaderRoute: typeof FurnituresAddRouteImport
-      parentRoute: typeof FurnituresRoute
+      fullPath: '/admin/furnitures/add'
+      preLoaderRoute: typeof authenticatedAdminFurnituresAddRouteImport
+      parentRoute: typeof authenticatedAdminFurnituresRoute
     }
-    '/(auth)/auth/register': {
-      id: '/(auth)/auth/register'
-      path: '/auth/register'
+    '/(auth)/auth/_pathlessLayout/register': {
+      id: '/(auth)/auth/_pathlessLayout/register'
+      path: '/register'
       fullPath: '/auth/register'
-      preLoaderRoute: typeof authAuthRegisterRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof authAuthPathlessLayoutRegisterRouteImport
+      parentRoute: typeof authAuthPathlessLayoutRoute
     }
-    '/(auth)/auth/login': {
-      id: '/(auth)/auth/login'
-      path: '/auth/login'
+    '/(auth)/auth/_pathlessLayout/login': {
+      id: '/(auth)/auth/_pathlessLayout/login'
+      path: '/login'
       fullPath: '/auth/login'
-      preLoaderRoute: typeof authAuthLoginRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof authAuthPathlessLayoutLoginRouteImport
+      parentRoute: typeof authAuthPathlessLayoutRoute
     }
   }
 }
 
-interface FurnituresRouteChildren {
-  FurnituresAddRoute: typeof FurnituresAddRoute
+interface authAuthPathlessLayoutRouteChildren {
+  authAuthPathlessLayoutLoginRoute: typeof authAuthPathlessLayoutLoginRoute
+  authAuthPathlessLayoutRegisterRoute: typeof authAuthPathlessLayoutRegisterRoute
 }
 
-const FurnituresRouteChildren: FurnituresRouteChildren = {
-  FurnituresAddRoute: FurnituresAddRoute,
+const authAuthPathlessLayoutRouteChildren: authAuthPathlessLayoutRouteChildren =
+  {
+    authAuthPathlessLayoutLoginRoute: authAuthPathlessLayoutLoginRoute,
+    authAuthPathlessLayoutRegisterRoute: authAuthPathlessLayoutRegisterRoute,
+  }
+
+const authAuthPathlessLayoutRouteWithChildren =
+  authAuthPathlessLayoutRoute._addFileChildren(
+    authAuthPathlessLayoutRouteChildren,
+  )
+
+interface authAuthRouteChildren {
+  authAuthPathlessLayoutRoute: typeof authAuthPathlessLayoutRouteWithChildren
 }
 
-const FurnituresRouteWithChildren = FurnituresRoute._addFileChildren(
-  FurnituresRouteChildren,
+const authAuthRouteChildren: authAuthRouteChildren = {
+  authAuthPathlessLayoutRoute: authAuthPathlessLayoutRouteWithChildren,
+}
+
+const authAuthRouteWithChildren = authAuthRoute._addFileChildren(
+  authAuthRouteChildren,
 )
+
+interface authenticatedAdminFurnituresRouteChildren {
+  authenticatedAdminFurnituresAddRoute: typeof authenticatedAdminFurnituresAddRoute
+}
+
+const authenticatedAdminFurnituresRouteChildren: authenticatedAdminFurnituresRouteChildren =
+  {
+    authenticatedAdminFurnituresAddRoute: authenticatedAdminFurnituresAddRoute,
+  }
+
+const authenticatedAdminFurnituresRouteWithChildren =
+  authenticatedAdminFurnituresRoute._addFileChildren(
+    authenticatedAdminFurnituresRouteChildren,
+  )
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  FurnituresRoute: FurnituresRouteWithChildren,
   MaterialsMaterialIdRoute: MaterialsMaterialIdRoute,
-  authAuthLoginRoute: authAuthLoginRoute,
-  authAuthRegisterRoute: authAuthRegisterRoute,
+  authAuthRoute: authAuthRouteWithChildren,
+  authenticatedAdminFurnituresRoute:
+    authenticatedAdminFurnituresRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

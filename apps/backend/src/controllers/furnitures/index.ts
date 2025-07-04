@@ -1,30 +1,28 @@
 import type { Request, Response } from "express";
 
-import { createFurnitureSchema } from "@projet-node-semaine-3/shared/validators";
+import {
+  createFurnitureFormSchema,
+  CreateFurnitureInput
+} from "@projet-node-semaine-3/shared/validators";
 
 import { models } from "@/models";
 import { logger } from "@/utils/logger";
 import { APIResponse } from "@/utils/response";
-import type { RawMaterialsValue } from "@projet-node-semaine-3/shared/enums";
-import { rawMaterialValueToId } from "@projet-node-semaine-3/shared/enums";
-import { z } from "zod";
-
-export type CreateFurnitureInput = z.infer<typeof createFurnitureSchema>;
 
 export const furnitures = {
   create: async (request: Request, response: Response) => {
     logger.info("[POST] Créer un meuble depuis");
     try {
       const { value, type, rawMaterials } = request.body;
+      const { user } = response.locals;
 
-      const validation = createFurnitureSchema.safeParse(request.body);
+      const validation = createFurnitureFormSchema.safeParse(request.body);
 
       const input = {
         value,
         type,
-        rawMaterials: rawMaterials.map(
-          (material: RawMaterialsValue) => rawMaterialValueToId[material]
-        ),
+        rawMaterials: rawMaterials,
+        createdBy: user.id,
       } as CreateFurnitureInput;
 
       if (validation.error) {
