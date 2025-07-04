@@ -14,5 +14,10 @@ router.patch(
   controllers.furnitures.update
 );
 router.get("/:id", middlewares.isAuthenticated, controllers.furnitures.get);
+router.delete(
+  "/:id",
+  middlewares.isAuthenticated,
+  controllers.furnitures.delete
+);
 
 export default router;

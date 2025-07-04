@@ -146,4 +146,9 @@ export const furnitures = {
         materials: rows[0]!.materials.map((val) => val.value),
       }));
   },
+  delete: async (input: { id: string }) => {
+    await db
+      .delete(schema.furnitures)
+      .where(eq(schema.furnitures.id, input.id));
+  },
 };

@@ -1,16 +1,45 @@
 import * as Ariakit from "@ariakit/react";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQueryClient,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
-import { Pen } from "lucide-react";
+import { Pen, Trash } from "lucide-react";
 import { Fragment } from "react";
+import { Button } from "~/components/button";
 import { ButtonLink } from "~/components/button-link";
 import { queryOptions } from "~/lib/query-options";
 import type { AuthContext } from "~/routes/__root";
 
 export const FurnitureTable = (props: { user: AuthContext["user"] }) => {
+  const queryClient = useQueryClient();
   const { data: furnitures } = useSuspenseQuery(
     queryOptions.furnitures.getAllGrouppedByFurnitureType()
   );
+
+  const deleteMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/furnitures/${id}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error(res.statusText);
+      }
+    },
+    onSuccess: async () => {
+      queryClient.invalidateQueries({ queryKey: ["furnitures"] });
+      queryClient.invalidateQueries({ queryKey: ["materialsStats"] });
+    },
+  });
 
   return (
     <div className="overflow-x-auto">
@@ -78,6 +107,16 @@ export const FurnitureTable = (props: { user: AuthContext["user"] }) => {
                               Editer
                             </Ariakit.VisuallyHidden>
                           </ButtonLink>
+                          <Button
+                            variant="icon"
+                            className="hover:ak-layer-hover ak-layer-destructive"
+                            onClick={() => deleteMutation.mutate(furniture.id)}
+                          >
+                            <Trash size={16} />
+                            <Ariakit.VisuallyHidden>
+                              Supprimer
+                            </Ariakit.VisuallyHidden>
+                          </Button>
                         </td>
                       </tr>
                     </Fragment>

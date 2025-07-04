@@ -149,4 +149,37 @@ export const furnitures = {
       });
     }
   },
+  delete: async (request: Request, response: Response) => {
+    logger.info("[GET] Récupérer un meuble");
+    const { id } = request.params;
+
+    if (!id) {
+      APIResponse({
+        response,
+        message: "Ce meuble n'existe pas",
+        status: 404,
+      });
+      return;
+    }
+    try {
+      const data = await models.furnitures.delete({ id });
+
+      APIResponse({
+        response,
+        message: "Meubles récupéré",
+        status: 201,
+        data,
+      });
+      return;
+    } catch (error: any) {
+      logger.error(
+        "Erreur lors de la récupération du meuble: " + error.message
+      );
+      APIResponse({
+        response,
+        message: "Erreur lors de la récupération du meuble",
+        status: 500,
+      });
+    }
+  },
 };
