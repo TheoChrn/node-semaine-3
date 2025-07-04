@@ -38,7 +38,7 @@ function RouteComponent() {
     onSuccess: async (data) => {
       await queryClient.setQueryData(["currentUser"], data);
       navigate({
-        to: "/auth/login",
+        to: "/admin/furnitures",
         replace: true,
       });
     },

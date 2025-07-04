@@ -56,7 +56,7 @@ export const furnitures = {
       .select({
         id: schema.furnitures.id,
         value: schema.furnitures.value,
-
+        quantity: schema.furnitures.quantity,
         type: schema.furnitures.type,
         materialsByType: jsonAgg({
           type: materials.type,

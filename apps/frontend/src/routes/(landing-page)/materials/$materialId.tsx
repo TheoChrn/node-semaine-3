@@ -6,7 +6,7 @@ import { ButtonLink } from "~/components/button-link";
 import { Wrapper } from "~/components/wrapper";
 import { queryOptions } from "~/lib/query-options";
 
-export const Route = createFileRoute("/materials/$materialId")({
+export const Route = createFileRoute("/(landing-page)/materials/$materialId")({
   component: RouteComponent,
   loader: ({ context: { queryClient }, params: { materialId } }) =>
     queryClient.ensureQueryData(queryOptions.getById(materialId)),
@@ -18,7 +18,7 @@ function RouteComponent() {
 
   return (
     <Ariakit.HeadingLevel>
-      <Wrapper className="space-y-6">
+      <Wrapper className="p-8 space-y-6">
         <div className="flex items-center gap-3">
           <ButtonLink to="/" variant="outline">
             <ArrowLeft />

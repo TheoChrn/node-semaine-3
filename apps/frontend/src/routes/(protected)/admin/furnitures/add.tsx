@@ -22,7 +22,7 @@ import { buttonVariants } from "~/components/button";
 import { Fragment } from "react/jsx-runtime";
 import { ErrorMessages } from "~/components/form-components";
 
-export const Route = createFileRoute("/(authenticated)/admin/furnitures/add")({
+export const Route = createFileRoute("/(protected)/admin/furnitures/add")({
   component: RouteComponent,
 });
 

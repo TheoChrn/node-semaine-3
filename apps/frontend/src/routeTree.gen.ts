@@ -11,46 +11,47 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as MaterialsMaterialIdRouteImport } from './routes/materials/$materialId'
-import { Route as authenticatedAdminFurnituresRouteImport } from './routes/(authenticated)/admin/furnitures'
+import { Route as landingPageIndexRouteImport } from './routes/(landing-page)/index'
+import { Route as protectedAdminFurnituresRouteImport } from './routes/(protected)/admin/furnitures'
+import { Route as landingPageMaterialsMaterialIdRouteImport } from './routes/(landing-page)/materials/$materialId'
 import { Route as authAuthPathlessLayoutRouteImport } from './routes/(auth)/auth/_pathlessLayout'
-import { Route as authenticatedAdminFurnituresAddRouteImport } from './routes/(authenticated)/admin/furnitures/add'
+import { Route as protectedAdminFurnituresAddRouteImport } from './routes/(protected)/admin/furnitures/add'
 import { Route as authAuthPathlessLayoutRegisterRouteImport } from './routes/(auth)/auth/_pathlessLayout/register'
 import { Route as authAuthPathlessLayoutLoginRouteImport } from './routes/(auth)/auth/_pathlessLayout/login'
 
 const authAuthRouteImport = createFileRoute('/(auth)/auth')()
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const authAuthRoute = authAuthRouteImport.update({
   id: '/(auth)/auth',
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MaterialsMaterialIdRoute = MaterialsMaterialIdRouteImport.update({
-  id: '/materials/$materialId',
-  path: '/materials/$materialId',
+const landingPageIndexRoute = landingPageIndexRouteImport.update({
+  id: '/(landing-page)/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const authenticatedAdminFurnituresRoute =
-  authenticatedAdminFurnituresRouteImport.update({
-    id: '/(authenticated)/admin/furnitures',
+const protectedAdminFurnituresRoute =
+  protectedAdminFurnituresRouteImport.update({
+    id: '/(protected)/admin/furnitures',
     path: '/admin/furnitures',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const landingPageMaterialsMaterialIdRoute =
+  landingPageMaterialsMaterialIdRouteImport.update({
+    id: '/(landing-page)/materials/$materialId',
+    path: '/materials/$materialId',
     getParentRoute: () => rootRouteImport,
   } as any)
 const authAuthPathlessLayoutRoute = authAuthPathlessLayoutRouteImport.update({
   id: '/_pathlessLayout',
   getParentRoute: () => authAuthRoute,
 } as any)
-const authenticatedAdminFurnituresAddRoute =
-  authenticatedAdminFurnituresAddRouteImport.update({
+const protectedAdminFurnituresAddRoute =
+  protectedAdminFurnituresAddRouteImport.update({
     id: '/add',
     path: '/add',
-    getParentRoute: () => authenticatedAdminFurnituresRoute,
+    getParentRoute: () => protectedAdminFurnituresRoute,
   } as any)
 const authAuthPathlessLayoutRegisterRoute =
   authAuthPathlessLayoutRegisterRouteImport.update({
@@ -66,40 +67,40 @@ const authAuthPathlessLayoutLoginRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/materials/$materialId': typeof MaterialsMaterialIdRoute
+  '/': typeof landingPageIndexRoute
   '/auth': typeof authAuthPathlessLayoutRouteWithChildren
-  '/admin/furnitures': typeof authenticatedAdminFurnituresRouteWithChildren
+  '/materials/$materialId': typeof landingPageMaterialsMaterialIdRoute
+  '/admin/furnitures': typeof protectedAdminFurnituresRouteWithChildren
   '/auth/login': typeof authAuthPathlessLayoutLoginRoute
   '/auth/register': typeof authAuthPathlessLayoutRegisterRoute
-  '/admin/furnitures/add': typeof authenticatedAdminFurnituresAddRoute
+  '/admin/furnitures/add': typeof protectedAdminFurnituresAddRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/materials/$materialId': typeof MaterialsMaterialIdRoute
+  '/': typeof landingPageIndexRoute
   '/auth': typeof authAuthPathlessLayoutRouteWithChildren
-  '/admin/furnitures': typeof authenticatedAdminFurnituresRouteWithChildren
+  '/materials/$materialId': typeof landingPageMaterialsMaterialIdRoute
+  '/admin/furnitures': typeof protectedAdminFurnituresRouteWithChildren
   '/auth/login': typeof authAuthPathlessLayoutLoginRoute
   '/auth/register': typeof authAuthPathlessLayoutRegisterRoute
-  '/admin/furnitures/add': typeof authenticatedAdminFurnituresAddRoute
+  '/admin/furnitures/add': typeof protectedAdminFurnituresAddRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/materials/$materialId': typeof MaterialsMaterialIdRoute
+  '/(landing-page)/': typeof landingPageIndexRoute
   '/(auth)/auth': typeof authAuthRouteWithChildren
   '/(auth)/auth/_pathlessLayout': typeof authAuthPathlessLayoutRouteWithChildren
-  '/(authenticated)/admin/furnitures': typeof authenticatedAdminFurnituresRouteWithChildren
+  '/(landing-page)/materials/$materialId': typeof landingPageMaterialsMaterialIdRoute
+  '/(protected)/admin/furnitures': typeof protectedAdminFurnituresRouteWithChildren
   '/(auth)/auth/_pathlessLayout/login': typeof authAuthPathlessLayoutLoginRoute
   '/(auth)/auth/_pathlessLayout/register': typeof authAuthPathlessLayoutRegisterRoute
-  '/(authenticated)/admin/furnitures/add': typeof authenticatedAdminFurnituresAddRoute
+  '/(protected)/admin/furnitures/add': typeof protectedAdminFurnituresAddRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/materials/$materialId'
     | '/auth'
+    | '/materials/$materialId'
     | '/admin/furnitures'
     | '/auth/login'
     | '/auth/register'
@@ -107,40 +108,33 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/materials/$materialId'
     | '/auth'
+    | '/materials/$materialId'
     | '/admin/furnitures'
     | '/auth/login'
     | '/auth/register'
     | '/admin/furnitures/add'
   id:
     | '__root__'
-    | '/'
-    | '/materials/$materialId'
+    | '/(landing-page)/'
     | '/(auth)/auth'
     | '/(auth)/auth/_pathlessLayout'
-    | '/(authenticated)/admin/furnitures'
+    | '/(landing-page)/materials/$materialId'
+    | '/(protected)/admin/furnitures'
     | '/(auth)/auth/_pathlessLayout/login'
     | '/(auth)/auth/_pathlessLayout/register'
-    | '/(authenticated)/admin/furnitures/add'
+    | '/(protected)/admin/furnitures/add'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  MaterialsMaterialIdRoute: typeof MaterialsMaterialIdRoute
+  landingPageIndexRoute: typeof landingPageIndexRoute
   authAuthRoute: typeof authAuthRouteWithChildren
-  authenticatedAdminFurnituresRoute: typeof authenticatedAdminFurnituresRouteWithChildren
+  landingPageMaterialsMaterialIdRoute: typeof landingPageMaterialsMaterialIdRoute
+  protectedAdminFurnituresRoute: typeof protectedAdminFurnituresRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/(auth)/auth': {
       id: '/(auth)/auth'
       path: '/auth'
@@ -148,18 +142,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authAuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/materials/$materialId': {
-      id: '/materials/$materialId'
-      path: '/materials/$materialId'
-      fullPath: '/materials/$materialId'
-      preLoaderRoute: typeof MaterialsMaterialIdRouteImport
+    '/(landing-page)/': {
+      id: '/(landing-page)/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof landingPageIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/(authenticated)/admin/furnitures': {
-      id: '/(authenticated)/admin/furnitures'
+    '/(protected)/admin/furnitures': {
+      id: '/(protected)/admin/furnitures'
       path: '/admin/furnitures'
       fullPath: '/admin/furnitures'
-      preLoaderRoute: typeof authenticatedAdminFurnituresRouteImport
+      preLoaderRoute: typeof protectedAdminFurnituresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(landing-page)/materials/$materialId': {
+      id: '/(landing-page)/materials/$materialId'
+      path: '/materials/$materialId'
+      fullPath: '/materials/$materialId'
+      preLoaderRoute: typeof landingPageMaterialsMaterialIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/(auth)/auth/_pathlessLayout': {
@@ -169,12 +170,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authAuthPathlessLayoutRouteImport
       parentRoute: typeof authAuthRoute
     }
-    '/(authenticated)/admin/furnitures/add': {
-      id: '/(authenticated)/admin/furnitures/add'
+    '/(protected)/admin/furnitures/add': {
+      id: '/(protected)/admin/furnitures/add'
       path: '/add'
       fullPath: '/admin/furnitures/add'
-      preLoaderRoute: typeof authenticatedAdminFurnituresAddRouteImport
-      parentRoute: typeof authenticatedAdminFurnituresRoute
+      preLoaderRoute: typeof protectedAdminFurnituresAddRouteImport
+      parentRoute: typeof protectedAdminFurnituresRoute
     }
     '/(auth)/auth/_pathlessLayout/register': {
       id: '/(auth)/auth/_pathlessLayout/register'
@@ -221,26 +222,25 @@ const authAuthRouteWithChildren = authAuthRoute._addFileChildren(
   authAuthRouteChildren,
 )
 
-interface authenticatedAdminFurnituresRouteChildren {
-  authenticatedAdminFurnituresAddRoute: typeof authenticatedAdminFurnituresAddRoute
+interface protectedAdminFurnituresRouteChildren {
+  protectedAdminFurnituresAddRoute: typeof protectedAdminFurnituresAddRoute
 }
 
-const authenticatedAdminFurnituresRouteChildren: authenticatedAdminFurnituresRouteChildren =
+const protectedAdminFurnituresRouteChildren: protectedAdminFurnituresRouteChildren =
   {
-    authenticatedAdminFurnituresAddRoute: authenticatedAdminFurnituresAddRoute,
+    protectedAdminFurnituresAddRoute: protectedAdminFurnituresAddRoute,
   }
 
-const authenticatedAdminFurnituresRouteWithChildren =
-  authenticatedAdminFurnituresRoute._addFileChildren(
-    authenticatedAdminFurnituresRouteChildren,
+const protectedAdminFurnituresRouteWithChildren =
+  protectedAdminFurnituresRoute._addFileChildren(
+    protectedAdminFurnituresRouteChildren,
   )
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  MaterialsMaterialIdRoute: MaterialsMaterialIdRoute,
+  landingPageIndexRoute: landingPageIndexRoute,
   authAuthRoute: authAuthRouteWithChildren,
-  authenticatedAdminFurnituresRoute:
-    authenticatedAdminFurnituresRouteWithChildren,
+  landingPageMaterialsMaterialIdRoute: landingPageMaterialsMaterialIdRoute,
+  protectedAdminFurnituresRoute: protectedAdminFurnituresRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

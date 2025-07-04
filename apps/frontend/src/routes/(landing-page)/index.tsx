@@ -4,7 +4,7 @@ import { queryOptions } from "~/lib/query-options";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Wrapper } from "~/components/wrapper";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/(landing-page)/")({
   loader: ({ context: { queryClient } }) =>
     queryClient.ensureQueryData(queryOptions.getAllGrouppedByFurnitureType()),
   component: App,
@@ -17,7 +17,7 @@ function App() {
 
   return (
     <Ariakit.HeadingLevel>
-      <div className="p-4 ak-layer">
+      <div className="p-8 ak-layer">
         <Wrapper className="space-y-8">
           {furnitures && Object.entries(furnitures).length ? (
             <>
@@ -35,6 +35,7 @@ function App() {
                             className="flex border ak-frame ak-layer-down p-3 gap-4"
                           >
                             <div className="h-20 aspect-square ak-layer-contrast" />
+
                             <div className="my-auto space-y-2">
                               <Ariakit.Heading className="text-2xl font-semibold">
                                 {furniture.value}
@@ -57,6 +58,9 @@ function App() {
                                 )}
                               </ul>
                             </div>
+                            <span className="my-auto ml-auto">
+                              x{furniture.quantity}
+                            </span>
                           </article>
                         </Ariakit.HeadingLevel>
                       ))}

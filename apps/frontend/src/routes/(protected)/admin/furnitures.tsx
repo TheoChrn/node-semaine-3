@@ -20,7 +20,7 @@ import { queryOptions } from "~/lib/query-options";
 import { currentUserQueryOptions } from "~/lib/query-options/auth";
 import type { AuthContext } from "~/routes/__root";
 
-export const Route = createFileRoute("/(authenticated)/admin/furnitures")({
+export const Route = createFileRoute("/(protected)/admin/furnitures")({
   beforeLoad: async ({ context, location }) => {
     const user = await context.queryClient.ensureQueryData(
       currentUserQueryOptions()
@@ -59,7 +59,7 @@ function RouteComponent() {
   return (
     <>
       <Ariakit.HeadingLevel>
-        <div className="p-4 ak-layer overflow-hidden">
+        <div className="p-8 ak-layer overflow-hidden">
           <Wrapper className="space-y-10">
             <div className="flex items-center justify-between">
               <Ariakit.Heading className="text-2xl font-semibold">
