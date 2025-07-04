@@ -7,6 +7,12 @@ import express from "express";
 const router: Router = express.Router();
 
 router.post("/", middlewares.isAuthenticated, controllers.furnitures.create);
-router.get("/", controllers.furnitures.getAll);
+router.get("/", middlewares.isAuthenticated, controllers.furnitures.getAll);
+router.patch(
+  "/:id",
+  middlewares.isAuthenticated,
+  controllers.furnitures.update
+);
+router.get("/:id", middlewares.isAuthenticated, controllers.furnitures.get);
 
 export default router;

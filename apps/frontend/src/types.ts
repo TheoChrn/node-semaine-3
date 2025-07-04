@@ -46,3 +46,11 @@ export type GetMaterialStats = {
   nElement: number;
   value: RawMaterialsValue;
 }[];
+
+export type GetFurnitureById = {
+  id: string;
+  value: string;
+  quantity: number;
+  type: FurnitureTypesValue;
+  materials: RawMaterialsValue[];
+};

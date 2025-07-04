@@ -1,7 +1,7 @@
 import { DialogDismiss, DialogHeading } from "@ariakit/react";
 
+import * as Ariakit from "@ariakit/react";
 import {
-  furnitureTypesRecord,
   furnitureTypesValues,
   rawMaterialsByType,
   type FurnitureTypesValue,
@@ -10,36 +10,52 @@ import {
 import {
   furnitureFormSchema,
   type FurnitureFormInput,
+  type UpdateFurnitureInput,
 } from "@projet-node-semaine-3/shared/validators";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQueryClient,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import { Dialog } from "~/components/dialog";
 import { useAppForm } from "~/hooks/form";
-import * as Ariakit from "@ariakit/react";
 
-import { buttonVariants } from "~/components/button";
 import { Fragment } from "react/jsx-runtime";
+import { buttonVariants } from "~/components/button";
 import { ErrorMessages } from "~/components/form-components";
+import { queryOptions } from "~/lib/query-options";
 
-export const Route = createFileRoute("/(protected)/admin/furnitures/add")({
+export const Route = createFileRoute(
+  "/(protected)/admin/furnitures/$furnitureId/edit"
+)({
   component: RouteComponent,
+  loader: ({ context: { queryClient }, params: { furnitureId } }) =>
+    queryClient.ensureQueryData(queryOptions.furnitures.getById(furnitureId)),
 });
 
 function RouteComponent() {
+  const { furnitureId } = Route.useParams();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { data: furniture } = useSuspenseQuery(
+    queryOptions.furnitures.getById(furnitureId)
+  );
 
   const { mutate, error } = useMutation({
     mutationFn: async (furniture: FurnitureFormInput) => {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/furnitures`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(furniture),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/furnitures/${furnitureId}`,
+        {
+          method: "PATCH",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(furniture),
+        }
+      );
 
       if (!res.ok) {
         throw new Error(res.statusText);
@@ -57,9 +73,9 @@ function RouteComponent() {
 
   const form = useAppForm({
     defaultValues: {
-      value: "",
-      type: furnitureTypesRecord.ARMOIRE as FurnitureTypesValue,
-      rawMaterials: [] as RawMaterialsValue[],
+      value: furniture!.value,
+      type: furniture!.type,
+      rawMaterials: furniture!.materials,
     },
     validators: { onChange: furnitureFormSchema },
     onSubmit: ({ value }) => {
@@ -201,7 +217,7 @@ function RouteComponent() {
             </div>
           )}
           <form.AppForm>
-            <form.SubscribeButton label="Submit" />
+            <form.SubscribeButton label="Enregister" />
           </form.AppForm>
         </div>
       </form>

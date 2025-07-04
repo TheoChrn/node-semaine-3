@@ -4,7 +4,6 @@ import { Plus } from "lucide-react";
 import { ButtonLink } from "~/components/button-link";
 import { FurnitureTable } from "~/components/furniture-table";
 import { MaterialsGraph } from "~/components/materials-graph";
-import { Wrapper } from "~/components/wrapper";
 import { queryOptions } from "~/lib/query-options";
 import { currentUserQueryOptions } from "~/lib/query-options/auth";
 import type { AuthContext } from "~/routes/__root";
@@ -34,8 +33,10 @@ export const Route = createFileRoute("/(protected)/admin/furnitures")({
     };
   },
   loader: ({ context: { queryClient, auth } }) => {
-    queryClient.ensureQueryData(queryOptions.getAllGrouppedByFurnitureType());
-    queryClient.ensureQueryData(queryOptions.getStats());
+    queryClient.ensureQueryData(
+      queryOptions.furnitures.getAllGrouppedByFurnitureType()
+    );
+    queryClient.ensureQueryData(queryOptions.materials.getStats());
     return { user: auth };
   },
   component: RouteComponent,

@@ -9,12 +9,14 @@ import { queryOptions } from "~/lib/query-options";
 export const Route = createFileRoute("/(landing-page)/materials/$materialId")({
   component: RouteComponent,
   loader: ({ context: { queryClient }, params: { materialId } }) =>
-    queryClient.ensureQueryData(queryOptions.getById(materialId)),
+    queryClient.ensureQueryData(queryOptions.materials.getById(materialId)),
 });
 
 function RouteComponent() {
   const materialId = Route.useParams().materialId;
-  const { data: material } = useSuspenseQuery(queryOptions.getById(materialId));
+  const { data: material } = useSuspenseQuery(
+    queryOptions.materials.getById(materialId)
+  );
 
   return (
     <Ariakit.HeadingLevel>

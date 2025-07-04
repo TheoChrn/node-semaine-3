@@ -4,7 +4,11 @@ import { eq, sql } from "drizzle-orm";
 
 import { rawMaterialValueToId } from "@projet-node-semaine-3/shared/enums";
 import { arrayToObject, groupBy } from "@projet-node-semaine-3/shared/format";
-import { CreateFurnitureInput } from "@projet-node-semaine-3/shared/validators";
+import {
+  CreateFurnitureInput,
+  UpdateFurnitureInput,
+} from "@projet-node-semaine-3/shared/validators";
+import { materials } from "@/models/materials";
 
 export const furnitures = {
   create: async (input: CreateFurnitureInput) => {
@@ -27,6 +31,32 @@ export const furnitures = {
       );
     });
   },
+  update: async (input: UpdateFurnitureInput) => {
+    const { rawMaterials, ...restInput } = input;
+
+    return await db.transaction(async (tx) => {
+      const furniture = await tx
+        .update(schema.furnitures)
+        .set(restInput)
+        .where(eq(schema.furnitures.id, input.id))
+        .returning({ id: schema.furnitures.id })
+        .then((rows) => rows[0]);
+
+      if (!furniture) throw new Error("Mise à jour meuble échouée");
+
+      await tx
+        .delete(schema.furnituresRawMaterials)
+        .where(eq(schema.furnituresRawMaterials.furnitureId, furniture.id));
+
+      await tx.insert(schema.furnituresRawMaterials).values(
+        rawMaterials.map((value) => ({
+          furnitureId: furniture.id,
+          materialId: rawMaterialValueToId[value],
+        }))
+      );
+    });
+  },
+
   getAll: async () => {
     const materials = db
       .select({
@@ -83,5 +113,37 @@ export const furnitures = {
           groupped,
         };
       });
+  },
+  get: async (input: { id: string }) => {
+    return await db
+      .select({
+        id: schema.furnitures.id,
+        value: schema.furnitures.value,
+        quantity: schema.furnitures.quantity,
+        type: schema.furnitures.type,
+        materials: jsonAgg({
+          value: schema.rawMaterials.value,
+        }),
+      })
+      .from(schema.furnituresRawMaterials)
+      .leftJoin(
+        schema.furnitures,
+        eq(schema.furnituresRawMaterials.furnitureId, schema.furnitures.id)
+      )
+      .leftJoin(
+        schema.rawMaterials,
+        eq(schema.furnituresRawMaterials.materialId, schema.rawMaterials.id)
+      )
+      .where(eq(schema.furnituresRawMaterials.furnitureId, input.id))
+      .groupBy(
+        schema.furnitures.id,
+        schema.furnitures.value,
+        schema.furnitures.quantity,
+        schema.furnitures.type
+      )
+      .then((rows) => ({
+        ...rows[0],
+        materials: rows[0]!.materials.map((val) => val.value),
+      }));
   },
 };

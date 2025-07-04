@@ -7,6 +7,7 @@ import type { Request, Response } from "express";
 export const user = {
   getSession: async (request: Request, response: Response) => {
     logger.info("[GET] Récupérer la session du user");
+
     try {
       const { user } = response.locals;
 

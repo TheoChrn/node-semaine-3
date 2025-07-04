@@ -1,15 +1,44 @@
-import type { GetAllFurniture } from "~/types";
+import type { GetAllFurniture, GetFurnitureById } from "~/types";
 
-export const fetchFurnitures = async (): Promise<GetAllFurniture | null> => {
-  try {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/furnitures`);
-    if (!res.ok) {
+export const furnitures = {
+  fetchFurnitures: async (): Promise<GetAllFurniture | null> => {
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/furnitures`, {
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!res.ok) {
+        return null;
+      }
+
+      const furnitures = await res.json();
+
+      return furnitures.data;
+    } catch (err) {
       return null;
     }
-    const furnitures = await res.json();
+  },
+  fetchFurnitureById: async (id: string): Promise<GetFurnitureById | null> => {
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/furnitures/${id}`,
+        {
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!res.ok) {
+        return null;
+      }
+      const furnitures = await res.json();
 
-    return furnitures.data;
-  } catch (err) {
-    return null;
-  }
+      return furnitures.data;
+    } catch (err) {
+      return null;
+    }
+  },
 };

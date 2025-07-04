@@ -1,16 +1,17 @@
-import React, { Fragment } from "react";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { queryOptions } from "~/lib/query-options";
-import { Link } from "@tanstack/react-router";
-import type { AuthContext } from "~/routes/__root";
-import { Button } from "~/components/button";
-import { Pen } from "lucide-react";
 import * as Ariakit from "@ariakit/react";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { Link } from "@tanstack/react-router";
+import { Pen } from "lucide-react";
+import { Fragment } from "react";
+import { ButtonLink } from "~/components/button-link";
+import { queryOptions } from "~/lib/query-options";
+import type { AuthContext } from "~/routes/__root";
 
 export const FurnitureTable = (props: { user: AuthContext["user"] }) => {
   const { data: furnitures } = useSuspenseQuery(
-    queryOptions.getAllGrouppedByFurnitureType()
+    queryOptions.furnitures.getAllGrouppedByFurnitureType()
   );
+
   return (
     <div className="overflow-x-auto">
       <table className="w-full ">
@@ -66,7 +67,9 @@ export const FurnitureTable = (props: { user: AuthContext["user"] }) => {
                           {props.user.email}
                         </td>
                         <td className="p-3 ak-layer-pop-1 flex items-center gap-1">
-                          <Button
+                          <ButtonLink
+                            to="/admin/furnitures/$furnitureId/edit"
+                            params={{ furnitureId: furniture.id }}
                             variant="icon"
                             className="hover:ak-layer-hover-3"
                           >
@@ -74,7 +77,7 @@ export const FurnitureTable = (props: { user: AuthContext["user"] }) => {
                             <Ariakit.VisuallyHidden>
                               Editer
                             </Ariakit.VisuallyHidden>
-                          </Button>
+                          </ButtonLink>
                         </td>
                       </tr>
                     </Fragment>

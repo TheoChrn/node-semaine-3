@@ -13,9 +13,6 @@ export const currentUserQueryOptions = () =>
           },
         });
 
-        console.log("res");
-        console.log(res);
-
         if (!res.ok) {
           return null;
         }

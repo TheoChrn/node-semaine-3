@@ -6,13 +6,13 @@ import { Wrapper } from "~/components/wrapper";
 
 export const Route = createFileRoute("/(landing-page)/")({
   loader: ({ context: { queryClient } }) =>
-    queryClient.ensureQueryData(queryOptions.getAllGrouppedByFurnitureType()),
+    queryClient.ensureQueryData(queryOptions.furnitures.getAllGrouppedByFurnitureType()),
   component: App,
 });
 
 function App() {
   const { data: furnitures } = useSuspenseQuery(
-    queryOptions.getAllGrouppedByFurnitureType()
+    queryOptions.furnitures.getAllGrouppedByFurnitureType()
   );
 
   return (

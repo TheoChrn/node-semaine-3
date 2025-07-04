@@ -13,7 +13,9 @@ import {
 import { capitalize } from "@projet-node-semaine-3/shared/format";
 
 export const MaterialsGraph = () => {
-  const { data: materialStats } = useSuspenseQuery(queryOptions.getStats());
+  const { data: materialStats } = useSuspenseQuery(
+    queryOptions.materials.getStats()
+  );
 
   return (
     <div className="h-64">

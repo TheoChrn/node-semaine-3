@@ -18,6 +18,7 @@ import { Route as authAuthPathlessLayoutRouteImport } from './routes/(auth)/auth
 import { Route as protectedAdminFurnituresAddRouteImport } from './routes/(protected)/admin/furnitures/add'
 import { Route as authAuthPathlessLayoutRegisterRouteImport } from './routes/(auth)/auth/_pathlessLayout/register'
 import { Route as authAuthPathlessLayoutLoginRouteImport } from './routes/(auth)/auth/_pathlessLayout/login'
+import { Route as protectedAdminFurnituresFurnitureIdEditRouteImport } from './routes/(protected)/admin/furnitures/$furnitureId.edit'
 
 const authAuthRouteImport = createFileRoute('/(auth)/auth')()
 
@@ -65,6 +66,12 @@ const authAuthPathlessLayoutLoginRoute =
     path: '/login',
     getParentRoute: () => authAuthPathlessLayoutRoute,
   } as any)
+const protectedAdminFurnituresFurnitureIdEditRoute =
+  protectedAdminFurnituresFurnitureIdEditRouteImport.update({
+    id: '/$furnitureId/edit',
+    path: '/$furnitureId/edit',
+    getParentRoute: () => protectedAdminFurnituresRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof landingPageIndexRoute
@@ -74,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/auth/login': typeof authAuthPathlessLayoutLoginRoute
   '/auth/register': typeof authAuthPathlessLayoutRegisterRoute
   '/admin/furnitures/add': typeof protectedAdminFurnituresAddRoute
+  '/admin/furnitures/$furnitureId/edit': typeof protectedAdminFurnituresFurnitureIdEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof landingPageIndexRoute
@@ -83,6 +91,7 @@ export interface FileRoutesByTo {
   '/auth/login': typeof authAuthPathlessLayoutLoginRoute
   '/auth/register': typeof authAuthPathlessLayoutRegisterRoute
   '/admin/furnitures/add': typeof protectedAdminFurnituresAddRoute
+  '/admin/furnitures/$furnitureId/edit': typeof protectedAdminFurnituresFurnitureIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -94,6 +103,7 @@ export interface FileRoutesById {
   '/(auth)/auth/_pathlessLayout/login': typeof authAuthPathlessLayoutLoginRoute
   '/(auth)/auth/_pathlessLayout/register': typeof authAuthPathlessLayoutRegisterRoute
   '/(protected)/admin/furnitures/add': typeof protectedAdminFurnituresAddRoute
+  '/(protected)/admin/furnitures/$furnitureId/edit': typeof protectedAdminFurnituresFurnitureIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -105,6 +115,7 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/register'
     | '/admin/furnitures/add'
+    | '/admin/furnitures/$furnitureId/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -114,6 +125,7 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/register'
     | '/admin/furnitures/add'
+    | '/admin/furnitures/$furnitureId/edit'
   id:
     | '__root__'
     | '/(landing-page)/'
@@ -124,6 +136,7 @@ export interface FileRouteTypes {
     | '/(auth)/auth/_pathlessLayout/login'
     | '/(auth)/auth/_pathlessLayout/register'
     | '/(protected)/admin/furnitures/add'
+    | '/(protected)/admin/furnitures/$furnitureId/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -191,6 +204,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authAuthPathlessLayoutLoginRouteImport
       parentRoute: typeof authAuthPathlessLayoutRoute
     }
+    '/(protected)/admin/furnitures/$furnitureId/edit': {
+      id: '/(protected)/admin/furnitures/$furnitureId/edit'
+      path: '/$furnitureId/edit'
+      fullPath: '/admin/furnitures/$furnitureId/edit'
+      preLoaderRoute: typeof protectedAdminFurnituresFurnitureIdEditRouteImport
+      parentRoute: typeof protectedAdminFurnituresRoute
+    }
   }
 }
 
@@ -224,11 +244,14 @@ const authAuthRouteWithChildren = authAuthRoute._addFileChildren(
 
 interface protectedAdminFurnituresRouteChildren {
   protectedAdminFurnituresAddRoute: typeof protectedAdminFurnituresAddRoute
+  protectedAdminFurnituresFurnitureIdEditRoute: typeof protectedAdminFurnituresFurnitureIdEditRoute
 }
 
 const protectedAdminFurnituresRouteChildren: protectedAdminFurnituresRouteChildren =
   {
     protectedAdminFurnituresAddRoute: protectedAdminFurnituresAddRoute,
+    protectedAdminFurnituresFurnitureIdEditRoute:
+      protectedAdminFurnituresFurnitureIdEditRoute,
   }
 
 const protectedAdminFurnituresRouteWithChildren =
