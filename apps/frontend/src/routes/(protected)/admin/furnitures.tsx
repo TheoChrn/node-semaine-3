@@ -47,7 +47,7 @@ function RouteComponent() {
     <>
       <Ariakit.HeadingLevel>
         <div className="p-8 ak-layer overflow-hidden">
-          <Wrapper className="space-y-10">
+          <div className="space-y-10">
             <div className="flex items-center justify-between">
               <Ariakit.Heading className="text-2xl font-semibold">
                 Liste des meubles
@@ -58,7 +58,7 @@ function RouteComponent() {
             </div>
             <FurnitureTable user={user} />
             <MaterialsGraph />
-          </Wrapper>
+          </div>
         </div>
       </Ariakit.HeadingLevel>
       <Outlet />

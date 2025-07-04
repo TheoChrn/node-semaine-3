@@ -3,6 +3,9 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { queryOptions } from "~/lib/query-options";
 import { Link } from "@tanstack/react-router";
 import type { AuthContext } from "~/routes/__root";
+import { Button } from "~/components/button";
+import { Pen } from "lucide-react";
+import * as Ariakit from "@ariakit/react";
 
 export const FurnitureTable = (props: { user: AuthContext["user"] }) => {
   const { data: furnitures } = useSuspenseQuery(
@@ -18,6 +21,7 @@ export const FurnitureTable = (props: { user: AuthContext["user"] }) => {
             <th className="px-6 pb-3">Quantité</th>
             <th className="px-6 pb-3 text-start">Matériaux</th>
             <th className="px-6 pb-3">Créateur</th>
+            <th />
           </tr>
         </thead>
         <tbody>
@@ -31,6 +35,7 @@ export const FurnitureTable = (props: { user: AuthContext["user"] }) => {
                     <td className="ak-layer-pop-2" />
                     <td className="ak-layer-pop-2" />
                     <td className="ak-layer-pop-2" />
+                    <td className="ak-layer-pop-2" />
                   </tr>
                   {val.map((furniture) => (
                     <Fragment key={furniture.id}>
@@ -39,7 +44,9 @@ export const FurnitureTable = (props: { user: AuthContext["user"] }) => {
                         <td className="p-3 ak-layer-pop-1 text-center">
                           {furniture.value}
                         </td>
-                        <td className="p-3 ak-layer-pop-1 text-center"></td>
+                        <td className="p-3 ak-layer-pop-1 text-center">
+                          {furniture.quantity}
+                        </td>
                         <td className="capitalize flex flex-wrap  gap-1 justify-start p-3 ak-layer-pop-1">
                           {Object.values(furniture.materials).map(
                             ({ materials }) =>
@@ -57,6 +64,17 @@ export const FurnitureTable = (props: { user: AuthContext["user"] }) => {
                         </td>
                         <td className="p-3 ak-layer-pop-1 text-center">
                           {props.user.email}
+                        </td>
+                        <td className="p-3 ak-layer-pop-1 flex items-center gap-1">
+                          <Button
+                            variant="icon"
+                            className="hover:ak-layer-hover-3"
+                          >
+                            <Pen size={16} />
+                            <Ariakit.VisuallyHidden>
+                              Editer
+                            </Ariakit.VisuallyHidden>
+                          </Button>
                         </td>
                       </tr>
                     </Fragment>

@@ -8,6 +8,7 @@ export const buttonVariants = tv({
       primary: "ak-layer-primary",
       outline: "ak-laye ak-edge/100",
       neutral: "ak-layer-pop-10",
+      icon: "p-2 ak-layer",
     },
   },
   defaultVariants: {
