@@ -1,5 +1,6 @@
 import type {
   FurnitureTypesValue,
+  RawMaterialsValue,
   RawMaterialsValues,
   RawMaterialTypesValue,
   UserRole,
@@ -40,3 +41,8 @@ export type User = {
   id: string;
   role: UserRole;
 };
+
+export type GetMaterialStats = {
+  nElement: number;
+  value: RawMaterialsValue;
+}[];

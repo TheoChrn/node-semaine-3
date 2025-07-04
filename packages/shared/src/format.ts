@@ -27,3 +27,6 @@ export function groupBy<T, K extends keyof T>(
     {} as Partial<Record<string, Omit<T, K>[]>>
   );
 }
+
+export const capitalize = (s: string) =>
+  s ? s.charAt(0).toUpperCase() + s.slice(1) : "";

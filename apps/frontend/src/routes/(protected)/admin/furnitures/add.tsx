@@ -46,7 +46,8 @@ function RouteComponent() {
       }
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["furnitures"] });
+      queryClient.invalidateQueries({ queryKey: ["furnitures"] });
+      queryClient.invalidateQueries({ queryKey: ["materialsStats"] });
       navigate({
         to: "/admin/furnitures",
         replace: true,

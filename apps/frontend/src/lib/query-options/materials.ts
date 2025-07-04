@@ -6,3 +6,8 @@ export const getById = (id: string) =>
     queryKey: ["material", id],
     queryFn: () => queryFunction.fetchMaterials(id),
   });
+export const getStats = () =>
+  queryOptions({
+    queryKey: ["materialsStats"],
+    queryFn: () => queryFunction.fetchMaterialsStats(),
+  });
