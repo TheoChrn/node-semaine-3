@@ -5,8 +5,6 @@ import TanStackQueryLayout from "~/integrations/tanstack-query/layout.tsx";
 
 import { type QueryClient } from "@tanstack/react-query";
 
-import { Header } from "~/components/header.tsx";
-
 export interface AuthContext {
   user: {
     id: string;
