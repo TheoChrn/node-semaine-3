@@ -13,6 +13,9 @@ export default defineConfig(({}) => {
       viteReact(),
       tailwindcss(),
     ],
+    build: {
+      outDir: "dist",
+    },
     publicDir: "public",
     envDir: path.resolve(__dirname, "../../"),
     resolve: {
